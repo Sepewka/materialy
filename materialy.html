@@ -1,0 +1,810 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Калькулятор материалов</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-page: #eef2f7;
+            --glass-bg: rgba(255, 255, 255, 0.55);
+            --glass-border: rgba(255, 255, 255, 0.40);
+            --glass-shadow: 0 20px 50px rgba(0, 0, 0, 0.06), 0 0 0 1px rgba(255, 255, 255, 0.3);
+            --text-primary: #1a2634;
+            --text-secondary: #4a5e74;
+            --input-bg: rgba(255, 255, 255, 0.75);
+            --input-border: #d0d9e6;
+            --input-focus: #2a7de1;
+            --btn-primary: #2a7de1;
+            --btn-primary-hover: #1a5fb0;
+            --btn-success: #0f9d58;
+            --btn-success-hover: #0b7e47;
+            --btn-danger: #dc3545;
+            --btn-danger-hover: #b02a37;
+            --table-header: #e9edf4;
+            --table-border: #dce5ef;
+            --total-bg: #eef4fc;
+            --card-radius: 24px;
+            --transition: 0.25s ease;
+        }
+
+        body.dark {
+            --bg-page: #181e2a;
+            --glass-bg: rgba(30, 37, 50, 0.72);
+            --glass-border: rgba(255, 255, 255, 0.06);
+            --glass-shadow: 0 20px 50px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(255, 255, 255, 0.04);
+            --text-primary: #e8ecf1;
+            --text-secondary: #a0b2c6;
+            --input-bg: rgba(45, 55, 72, 0.8);
+            --input-border: #3a455a;
+            --input-focus: #5a9aff;
+            --btn-primary: #4a8af4;
+            --btn-primary-hover: #2a7de1;
+            --btn-success: #2ea86b;
+            --btn-success-hover: #0f9d58;
+            --btn-danger: #e04a5a;
+            --btn-danger-hover: #c0394b;
+            --table-header: #2a3140;
+            --table-border: #3a455a;
+            --total-bg: #262e3f;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Inter', 'Segoe UI', sans-serif;
+            background: var(--bg-page);
+            color: var(--text-primary);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 24px;
+            transition: background var(--transition), color var(--transition);
+        }
+        .app { width: 100%; max-width: 1100px; }
+        .glass {
+            background: var(--glass-bg);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border-radius: var(--card-radius);
+            padding: 32px 34px;
+            box-shadow: var(--glass-shadow);
+            border: 1px solid var(--glass-border);
+            transition: background var(--transition), box-shadow var(--transition), border var(--transition);
+        }
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 28px;
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+        .header h1 {
+            font-size: 28px;
+            font-weight: 700;
+            letter-spacing: -0.4px;
+            color: var(--text-primary);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .theme-toggle {
+            background: var(--input-bg);
+            border: 1px solid var(--input-border);
+            border-radius: 40px;
+            padding: 8px 20px;
+            font-size: 15px;
+            font-weight: 500;
+            cursor: pointer;
+            color: var(--text-primary);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: background var(--transition), border var(--transition);
+        }
+        .theme-toggle:hover { background: var(--glass-border); }
+        .tabs {
+            display: flex;
+            gap: 6px;
+            border-bottom: 2px solid var(--table-border);
+            padding-bottom: 4px;
+            margin-bottom: 28px;
+        }
+        .tab-btn {
+            background: transparent;
+            border: none;
+            padding: 10px 22px;
+            font-size: 15px;
+            font-weight: 600;
+            color: var(--text-secondary);
+            cursor: pointer;
+            border-radius: 40px 40px 0 0;
+            transition: var(--transition);
+            position: relative;
+        }
+        .tab-btn:hover { color: var(--text-primary); background: rgba(255,255,255,0.04); }
+        .tab-btn.active {
+            color: var(--btn-primary);
+            background: rgba(42,125,225,0.08);
+        }
+        .tab-btn.active::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 20%;
+            width: 60%;
+            height: 3px;
+            border-radius: 4px;
+            background: var(--btn-primary);
+        }
+        .section-panel { display: none; animation: fadeIn 0.3s ease; }
+        .section-panel.active { display: block; }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(8px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
+        .grid-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 16px; }
+        .grid-4 { display: grid; grid-template-columns: 1fr 1fr 1fr 1fr; gap: 14px; }
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+        }
+        .form-group label {
+            font-size: 13px;
+            font-weight: 500;
+            color: var(--text-secondary);
+            letter-spacing: 0.3px;
+        }
+        .form-group input,
+        .form-group select {
+            padding: 10px 14px;
+            border-radius: 12px;
+            border: 1px solid var(--input-border);
+            background: var(--input-bg);
+            color: var(--text-primary);
+            font-size: 15px;
+            font-weight: 500;
+            transition: border var(--transition), box-shadow var(--transition);
+            outline: none;
+            font-family: inherit;
+        }
+        .form-group input:focus,
+        .form-group select:focus {
+            border-color: var(--input-focus);
+            box-shadow: 0 0 0 3px rgba(42,125,225,0.15);
+        }
+        .form-group input[type="number"] { -moz-appearance: textfield; }
+        .form-group input[type="number"]::-webkit-outer-spin-button,
+        .form-group input[type="number"]::-webkit-inner-spin-button {
+            -webkit-appearance: none;
+            margin: 0;
+        }
+        .form-group .hint {
+            font-size: 12px;
+            color: var(--text-secondary);
+            opacity: 0.7;
+        }
+        .color-select-wrapper {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .color-select-wrapper select { flex: 1; }
+        .color-preview {
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            border: 2px solid var(--glass-border);
+            flex-shrink: 0;
+            transition: background 0.2s;
+        }
+        .btn {
+            padding: 10px 24px;
+            border: none;
+            border-radius: 40px;
+            font-weight: 600;
+            font-size: 14px;
+            cursor: pointer;
+            transition: background var(--transition), transform var(--transition), box-shadow var(--transition);
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            background: var(--glass-border);
+            color: var(--text-primary);
+        }
+        .btn:active { transform: scale(0.96); }
+        .btn-primary {
+            background: var(--btn-primary);
+            color: #fff;
+        }
+        .btn-primary:hover {
+            background: var(--btn-primary-hover);
+            box-shadow: 0 6px 16px rgba(42,125,225,0.25);
+        }
+        .btn-success {
+            background: var(--btn-success);
+            color: #fff;
+        }
+        .btn-success:hover {
+            background: var(--btn-success-hover);
+            box-shadow: 0 6px 16px rgba(15,157,88,0.25);
+        }
+        .btn-outline {
+            background: transparent;
+            border: 1.5px solid var(--input-border);
+            color: var(--text-primary);
+        }
+        .btn-outline:hover {
+            background: var(--input-bg);
+            border-color: var(--text-secondary);
+        }
+        .action-row {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+            align-items: center;
+            margin: 18px 0 12px;
+            padding: 6px 0;
+        }
+        .action-row .spacer { flex: 1; }
+        .action-row .info-hint {
+            font-size: 13px;
+            color: var(--text-secondary);
+            opacity: 0.8;
+        }
+        .table-wrap {
+            overflow-x: auto;
+            margin-top: 16px;
+            border-radius: 14px;
+            border: 1px solid var(--table-border);
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 14px;
+        }
+        th {
+            background: var(--table-header);
+            padding: 12px 14px;
+            text-align: left;
+            font-weight: 600;
+            color: var(--text-primary);
+            border-bottom: 2px solid var(--table-border);
+        }
+        td {
+            padding: 12px 14px;
+            border-bottom: 1px solid var(--table-border);
+            color: var(--text-primary);
+        }
+        .total-row td {
+            font-weight: 700;
+            background: var(--total-bg);
+            border-top: 2px solid var(--btn-primary);
+        }
+        .remove-btn {
+            background: none;
+            border: none;
+            color: var(--btn-danger);
+            font-size: 18px;
+            cursor: pointer;
+            transition: transform 0.2s;
+            line-height: 1;
+        }
+        .remove-btn:hover { transform: scale(1.3); }
+        .color-swatch {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            margin-right: 6px;
+            border: 1px solid rgba(0,0,0,0.08);
+            vertical-align: middle;
+        }
+        .color-summary {
+            margin-top: 18px;
+            padding: 14px 20px;
+            background: var(--input-bg);
+            border-radius: 14px;
+            border: 1px solid var(--glass-border);
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px 30px;
+        }
+        .color-summary-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 14px;
+        }
+        .color-summary-item .swatch {
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            border: 1px solid rgba(0,0,0,0.08);
+        }
+        @media (max-width: 768px) {
+            .grid-2, .grid-3, .grid-4 { grid-template-columns: 1fr; }
+            .glass { padding: 20px 16px; }
+            .header h1 { font-size: 22px; }
+            .tab-btn { padding: 8px 16px; font-size: 14px; }
+            .action-row { flex-direction: column; align-items: stretch; }
+            .action-row .spacer { display: none; }
+        }
+    </style>
+</head>
+<body>
+<div class="app">
+    <div class="glass">
+
+        <!-- Шапка -->
+        <div class="header">
+            <h1>🧮 Калькулятор материалов</h1>
+            <button class="theme-toggle" id="themeToggle">
+                <span id="themeIcon">☀️</span> <span id="themeLabel">Светлая</span>
+            </button>
+        </div>
+
+        <!-- Вкладки -->
+        <div class="tabs">
+            <button class="tab-btn active" data-tab="tile">Плитка</button>
+            <button class="tab-btn" data-tab="paint">Краска</button>
+        </div>
+
+        <!-- ========= ПЛИТКА ========= -->
+        <div id="tab-tile" class="section-panel active">
+            <div class="grid-4">
+                <div class="form-group">
+                    <label>Длина плитки, мм</label>
+                    <input type="number" id="tileLength" value="600" step="1">
+                </div>
+                <div class="form-group">
+                    <label>Ширина плитки, мм</label>
+                    <input type="number" id="tileWidth" value="1200" step="1">
+                </div>
+                <div class="form-group">
+                    <label>Толщина плитки, мм</label>
+                    <input type="number" id="tileThick" value="9" step="0.5">
+                </div>
+                <div class="form-group">
+                    <label>Ширина шва, мм</label>
+                    <input type="number" id="jointWidth" value="1.5" step="0.1">
+                </div>
+            </div>
+
+            <div class="grid-2" style="margin-top:12px;">
+                <div class="form-group">
+                    <label>Площадь укладки, м²</label>
+                    <input type="number" id="tileArea" value="30" step="0.1">
+                </div>
+                <div class="form-group">
+                    <label>Цвет затирки</label>
+                    <div class="color-select-wrapper">
+                        <select id="groutColor">
+                            <option value="белый">Белый</option>
+                            <option value="серый">Серый</option>
+                            <option value="черный">Чёрный</option>
+                            <option value="красный">Красный</option>
+                            <option value="желтый">Жёлтый</option>
+                            <option value="зеленый">Зелёный</option>
+                            <option value="синий">Синий</option>
+                            <option value="коричневый">Коричневый</option>
+                            <option value="оранжевый">Оранжевый</option>
+                            <option value="фиолетовый">Фиолетовый</option>
+                        </select>
+                        <span class="color-preview" id="groutColorPreview" style="background:#808080;"></span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="action-row">
+                <button class="btn btn-primary" id="calcTileBtn">➕ Добавить вид плитки</button>
+                <button class="btn btn-outline" id="clearTileBtn">🗑️ Очистить</button>
+                <span class="spacer"></span>
+                <span class="info-hint">Клей: 1 мешок (25 кг) на 5 м² · Затирка: плотность 1.78</span>
+            </div>
+
+            <div class="table-wrap">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Формат</th>
+                            <th>Толщ., мм</th>
+                            <th>Шов, мм</th>
+                            <th>Площадь, м²</th>
+                            <th>Клей, меш. (25 кг)</th>
+                            <th>Затирка, кг</th>
+                            <th>Цвет</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody id="tileTableBody"></tbody>
+                    <tfoot>
+                        <tr class="total-row">
+                            <td colspan="3"><strong>ИТОГО</strong></td>
+                            <td id="totalTileArea">0</td>
+                            <td id="totalTileBags">0</td>
+                            <td id="totalTileGrout">0</td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                    </tfoot>
+                </table>
+            </div>
+
+            <div id="tileColorSummary" class="color-summary" style="display:none;"></div>
+        </div>
+
+        <!-- ========= КРАСКА ========= -->
+        <div id="tab-paint" class="section-panel">
+            <div class="grid-3">
+                <div class="form-group">
+                    <label>Площадь, м²</label>
+                    <input type="number" id="paintArea" value="10" step="0.1">
+                </div>
+                <div class="form-group">
+                    <label>Количество слоёв краски</label>
+                    <select id="paintLayers">
+                        <option value="1">1 слой</option>
+                        <option value="2" selected>2 слоя</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Цвет краски</label>
+                    <div class="color-select-wrapper">
+                        <select id="paintColor">
+                            <option value="белый">Белый</option>
+                            <option value="серый">Серый</option>
+                            <option value="черный">Чёрный</option>
+                            <option value="красный">Красный</option>
+                            <option value="желтый">Жёлтый</option>
+                            <option value="зеленый">Зелёный</option>
+                            <option value="синий">Синий</option>
+                            <option value="коричневый">Коричневый</option>
+                            <option value="оранжевый">Оранжевый</option>
+                            <option value="фиолетовый">Фиолетовый</option>
+                        </select>
+                        <span class="color-preview" id="paintColorPreview" style="background:#808080;"></span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="grid-2" style="margin-top:12px;">
+                <div class="form-group">
+                    <label>Количество слоёв грунта (для всех записей)</label>
+                    <select id="primerLayers">
+                        <option value="1" selected>1 слой</option>
+                        <option value="2">2 слоя</option>
+                    </select>
+                    <span class="hint">Расход грунта: 0.1 л/м² на слой</span>
+                </div>
+                <div></div>
+            </div>
+
+            <div class="action-row">
+                <button class="btn btn-success" id="addPaintBtn">➕ Добавить вид краски</button>
+                <button class="btn btn-outline" id="clearPaintBtn">🗑️ Очистить</button>
+                <span class="spacer"></span>
+                <span class="info-hint">Краска: 0.1 л/м² на слой · Грунт: 0.1 л/м² на слой</span>
+            </div>
+
+            <div class="table-wrap">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Площадь, м²</th>
+                            <th>Слоёв краски</th>
+                            <th>Цвет</th>
+                            <th>Краска, л</th>
+                            <th>Грунт, л</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody id="paintTableBody"></tbody>
+                    <tfoot>
+                        <tr class="total-row">
+                            <td><strong>ИТОГО</strong></td>
+                            <td></td>
+                            <td></td>
+                            <td id="totalPaintLiters">0</td>
+                            <td id="totalPrimerLiters">0</td>
+                            <td></td>
+                        </tr>
+                    </tfoot>
+                </table>
+            </div>
+
+            <div id="paintColorSummary" class="color-summary" style="display:none;"></div>
+        </div>
+
+    </div>
+</div>
+
+<script>
+    (function() {
+        // Хранилище
+        let tileEntries = [];
+        let paintEntries = [];
+
+        // Константы
+        const GROUT_DENSITY = 1.78;
+        const PAINT_RATE = 0.1;
+        const PRIMER_RATE = 0.1;
+
+        // Цвета
+        const colorHexMap = {
+            'белый': '#ffffff',
+            'серый': '#808080',
+            'черный': '#000000',
+            'красный': '#ff0000',
+            'желтый': '#ffcc00',
+            'зеленый': '#00cc44',
+            'синий': '#0066ff',
+            'коричневый': '#8b4513',
+            'оранжевый': '#ff8800',
+            'фиолетовый': '#9900cc'
+        };
+
+        function getColorHex(name) {
+            return colorHexMap[name] || '#cccccc';
+        }
+
+        function updateColorPreview(selectId, previewId) {
+            const select = document.getElementById(selectId);
+            const preview = document.getElementById(previewId);
+            if (select && preview) {
+                preview.style.background = getColorHex(select.value);
+            }
+        }
+
+        // ----- ПЛИТКА -----
+        function calcGrout(length, width, thick, joint, area) {
+            const part = (length + width) / (length * width);
+            return part * joint * thick * GROUT_DENSITY * area;
+        }
+
+        function calcGlueBags(area) {
+            return Math.ceil(area / 5);
+        }
+
+        function renderTileTable() {
+            const tbody = document.getElementById('tileTableBody');
+            tbody.innerHTML = '';
+            let totalArea = 0, totalBags = 0, totalGrout = 0;
+            const colorMap = {};
+
+            tileEntries.forEach((entry, index) => {
+                const { length, width, thick, joint, area, color } = entry;
+                const grout = calcGrout(length, width, thick, joint, area);
+                const bags = calcGlueBags(area);
+
+                totalArea += area;
+                totalBags += bags;
+                totalGrout += grout;
+
+                if (!colorMap[color]) colorMap[color] = 0;
+                colorMap[color] += grout;
+
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td>${length}×${width}</td>
+                    <td>${thick}</td>
+                    <td>${joint}</td>
+                    <td>${area.toFixed(1)}</td>
+                    <td>${bags}</td>
+                    <td>${grout.toFixed(2)}</td>
+                    <td><span class="color-swatch" style="background:${getColorHex(color)};"></span>${color}</td>
+                    <td><button class="remove-btn" data-index="${index}" data-type="tile">✕</button></td>
+                `;
+                tbody.appendChild(row);
+            });
+
+            document.getElementById('totalTileArea').textContent = totalArea.toFixed(1);
+            document.getElementById('totalTileBags').textContent = totalBags;
+            document.getElementById('totalTileGrout').textContent = totalGrout.toFixed(2);
+
+            const summary = document.getElementById('tileColorSummary');
+            const keys = Object.keys(colorMap);
+            if (keys.length > 0) {
+                summary.style.display = 'flex';
+                summary.innerHTML = keys.map(c => `
+                    <div class="color-summary-item">
+                        <span class="swatch" style="background:${getColorHex(c)};"></span>
+                        <span>${c}: <strong>${colorMap[c].toFixed(2)}</strong> кг</span>
+                    </div>
+                `).join('');
+            } else {
+                summary.style.display = 'none';
+            }
+
+            document.querySelectorAll('#tileTableBody .remove-btn').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const idx = parseInt(this.dataset.index);
+                    tileEntries.splice(idx, 1);
+                    renderTileTable();
+                });
+            });
+        }
+
+        function addTileEntry() {
+            const length = parseFloat(document.getElementById('tileLength').value);
+            const width = parseFloat(document.getElementById('tileWidth').value);
+            const thick = parseFloat(document.getElementById('tileThick').value);
+            const joint = parseFloat(document.getElementById('jointWidth').value);
+            const area = parseFloat(document.getElementById('tileArea').value);
+            const color = document.getElementById('groutColor').value;
+
+            if ([length, width, thick, joint, area].some(v => isNaN(v) || v <= 0)) {
+                alert('Все числовые значения должны быть положительными (шов может быть 0).');
+                return;
+            }
+            if (joint < 0) { alert('Шов не может быть отрицательным.'); return; }
+
+            tileEntries.push({ length, width, thick, joint, area, color });
+            renderTileTable();
+        }
+
+        function clearTileTable() {
+            tileEntries = [];
+            renderTileTable();
+        }
+
+        // ----- КРАСКА -----
+        function renderPaintTable() {
+            const tbody = document.getElementById('paintTableBody');
+            tbody.innerHTML = '';
+            let totalPaint = 0, totalPrimer = 0;
+            const colorMap = {};
+            const primerLayers = parseInt(document.getElementById('primerLayers').value);
+
+            paintEntries.forEach((entry, index) => {
+                const { area, layers, color } = entry;
+                const paintL = area * PAINT_RATE * layers;
+                const primerL = area * PRIMER_RATE * primerLayers;
+
+                totalPaint += paintL;
+                totalPrimer += primerL;
+
+                if (!colorMap[color]) colorMap[color] = 0;
+                colorMap[color] += paintL;
+
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td>${area.toFixed(1)}</td>
+                    <td>${layers}</td>
+                    <td><span class="color-swatch" style="background:${getColorHex(color)};"></span>${color}</td>
+                    <td>${paintL.toFixed(2)}</td>
+                    <td>${primerL.toFixed(2)}</td>
+                    <td><button class="remove-btn" data-index="${index}" data-type="paint">✕</button></td>
+                `;
+                tbody.appendChild(row);
+            });
+
+            document.getElementById('totalPaintLiters').textContent = totalPaint.toFixed(2);
+            document.getElementById('totalPrimerLiters').textContent = totalPrimer.toFixed(2);
+
+            const summary = document.getElementById('paintColorSummary');
+            const keys = Object.keys(colorMap);
+            if (keys.length > 0) {
+                summary.style.display = 'flex';
+                summary.innerHTML = keys.map(c => `
+                    <div class="color-summary-item">
+                        <span class="swatch" style="background:${getColorHex(c)};"></span>
+                        <span>${c}: <strong>${colorMap[c].toFixed(2)}</strong> л</span>
+                    </div>
+                `).join('');
+            } else {
+                summary.style.display = 'none';
+            }
+
+            document.querySelectorAll('#paintTableBody .remove-btn').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const idx = parseInt(this.dataset.index);
+                    paintEntries.splice(idx, 1);
+                    renderPaintTable();
+                });
+            });
+        }
+
+        function addPaintEntry() {
+            const area = parseFloat(document.getElementById('paintArea').value);
+            const layers = parseInt(document.getElementById('paintLayers').value);
+            const color = document.getElementById('paintColor').value;
+
+            if (isNaN(area) || area <= 0) {
+                alert('Площадь должна быть положительным числом.');
+                return;
+            }
+
+            paintEntries.push({ area, layers, color });
+            renderPaintTable();
+        }
+
+        function clearPaintTable() {
+            paintEntries = [];
+            renderPaintTable();
+        }
+
+        // ----- Вкладки и тема -----
+        function setupTabs() {
+            const tabs = document.querySelectorAll('.tab-btn');
+            const panels = {
+                tile: document.getElementById('tab-tile'),
+                paint: document.getElementById('tab-paint')
+            };
+            tabs.forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const tab = this.dataset.tab;
+                    tabs.forEach(b => b.classList.remove('active'));
+                    Object.values(panels).forEach(p => p.classList.remove('active'));
+                    this.classList.add('active');
+                    panels[tab].classList.add('active');
+                });
+            });
+        }
+
+        function setupTheme() {
+            const toggle = document.getElementById('themeToggle');
+            const icon = document.getElementById('themeIcon');
+            const label = document.getElementById('themeLabel');
+            const body = document.body;
+            const saved = localStorage.getItem('theme') || 'light';
+            if (saved === 'dark') {
+                body.classList.add('dark');
+                icon.textContent = '🌙';
+                label.textContent = 'Тёмная';
+            }
+            toggle.addEventListener('click', function() {
+                const isDark = body.classList.toggle('dark');
+                if (isDark) {
+                    icon.textContent = '🌙';
+                    label.textContent = 'Тёмная';
+                    localStorage.setItem('theme', 'dark');
+                } else {
+                    icon.textContent = '☀️';
+                    label.textContent = 'Светлая';
+                    localStorage.setItem('theme', 'light');
+                }
+            });
+        }
+
+        // ----- Инициализация -----
+        window.addEventListener('DOMContentLoaded', function() {
+            // Демо-данные
+            tileEntries.push({
+                length: 600, width: 1200, thick: 9, joint: 1.5, area: 30, color: 'серый'
+            });
+            paintEntries.push({ area: 10, layers: 2, color: 'зеленый' });
+            paintEntries.push({ area: 5, layers: 1, color: 'красный' });
+
+            renderTileTable();
+            renderPaintTable();
+
+            setupTabs();
+            setupTheme();
+
+            document.getElementById('calcTileBtn').addEventListener('click', addTileEntry);
+            document.getElementById('clearTileBtn').addEventListener('click', clearTileTable);
+            document.getElementById('addPaintBtn').addEventListener('click', addPaintEntry);
+            document.getElementById('clearPaintBtn').addEventListener('click', clearPaintTable);
+
+            document.getElementById('groutColor').addEventListener('change', function() {
+                updateColorPreview('groutColor', 'groutColorPreview');
+            });
+            document.getElementById('paintColor').addEventListener('change', function() {
+                updateColorPreview('paintColor', 'paintColorPreview');
+            });
+            document.getElementById('primerLayers').addEventListener('change', renderPaintTable);
+
+            updateColorPreview('groutColor', 'groutColorPreview');
+            updateColorPreview('paintColor', 'paintColorPreview');
+        });
+    })();
+</script>
+</body>
+</html>
