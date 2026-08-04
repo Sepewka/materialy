@@ -8,6 +8,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700&display=swap" rel="stylesheet">
     <style>
+        /* ----- Базовые стили (полностью сохранены) ----- */
         :root {
             --bg-page: #eef2f7;
             --glass-bg: rgba(255, 255, 255, 0.55);
@@ -22,6 +23,8 @@
             --btn-primary-hover: #1a5fb0;
             --btn-success: #0f9d58;
             --btn-success-hover: #0b7e47;
+            --btn-warning: #e67e22;
+            --btn-warning-hover: #d35400;
             --btn-danger: #dc3545;
             --btn-danger-hover: #b02a37;
             --table-header: #e9edf4;
@@ -30,7 +33,6 @@
             --card-radius: 24px;
             --transition: 0.25s ease;
         }
-
         body.dark {
             --bg-page: #181e2a;
             --glass-bg: rgba(30, 37, 50, 0.72);
@@ -45,13 +47,14 @@
             --btn-primary-hover: #2a7de1;
             --btn-success: #2ea86b;
             --btn-success-hover: #0f9d58;
+            --btn-warning: #f39c12;
+            --btn-warning-hover: #e67e22;
             --btn-danger: #e04a5a;
             --btn-danger-hover: #c0394b;
             --table-header: #2a3140;
             --table-border: #3a455a;
             --total-bg: #262e3f;
         }
-
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body {
             font-family: 'Inter', 'Segoe UI', sans-serif;
@@ -113,6 +116,7 @@
             border-bottom: 2px solid var(--table-border);
             padding-bottom: 4px;
             margin-bottom: 28px;
+            flex-wrap: wrap;
         }
         .tab-btn {
             background: transparent;
@@ -235,6 +239,14 @@
             background: var(--btn-success-hover);
             box-shadow: 0 6px 16px rgba(15,157,88,0.25);
         }
+        .btn-warning {
+            background: var(--btn-warning);
+            color: #fff;
+        }
+        .btn-warning:hover {
+            background: var(--btn-warning-hover);
+            box-shadow: 0 6px 16px rgba(230,126,34,0.25);
+        }
         .btn-outline {
             background: transparent;
             border: 1.5px solid var(--input-border);
@@ -354,6 +366,7 @@
         <div class="tabs">
             <button class="tab-btn active" data-tab="tile">Плитка</button>
             <button class="tab-btn" data-tab="paint">Краска</button>
+            <button class="tab-btn" data-tab="vinyl">Кварцвинил</button>
         </div>
 
         <!-- ========= ПЛИТКА ========= -->
@@ -376,8 +389,7 @@
                     <input type="number" id="jointWidth" value="1.5" step="0.1">
                 </div>
             </div>
-
-            <div class="grid-2" style="margin-top:12px;">
+            <div class="grid-3" style="margin-top:12px;">
                 <div class="form-group">
                     <label>Площадь укладки, м²</label>
                     <input type="number" id="tileArea" value="30" step="0.1">
@@ -400,43 +412,34 @@
                         <span class="color-preview" id="groutColorPreview" style="background:#808080;"></span>
                     </div>
                 </div>
+                <div class="form-group">
+                    <label>Комментарий</label>
+                    <input type="text" id="tileComment" placeholder="Напр. Ванная" value="">
+                </div>
             </div>
-
             <div class="action-row">
-                <button class="btn btn-primary" id="calcTileBtn">➕ Добавить вид плитки</button>
+                <button class="btn btn-primary" id="calcTileBtn">➕ Добавить</button>
                 <button class="btn btn-outline" id="clearTileBtn">🗑️ Очистить</button>
                 <span class="spacer"></span>
                 <span class="info-hint">Клей: 1 мешок (25 кг) на 5 м² · Затирка: плотность 1.78</span>
             </div>
-
             <div class="table-wrap">
                 <table>
                     <thead>
-                        <tr>
-                            <th>Формат</th>
-                            <th>Толщ., мм</th>
-                            <th>Шов, мм</th>
-                            <th>Площадь, м²</th>
-                            <th>Клей, меш. (25 кг)</th>
-                            <th>Затирка, кг</th>
-                            <th>Цвет</th>
-                            <th></th>
-                        </tr>
+                        <tr><th>Объект</th><th>Формат</th><th>Толщ.</th><th>Шов</th><th>Площадь</th><th>Клей, меш.</th><th>Затирка, кг</th><th>Цвет</th><th></th></tr>
                     </thead>
                     <tbody id="tileTableBody"></tbody>
                     <tfoot>
                         <tr class="total-row">
-                            <td colspan="3"><strong>ИТОГО</strong></td>
+                            <td colspan="4"><strong>ИТОГО</strong></td>
                             <td id="totalTileArea">0</td>
                             <td id="totalTileBags">0</td>
                             <td id="totalTileGrout">0</td>
-                            <td></td>
-                            <td></td>
+                            <td></td><td></td>
                         </tr>
                     </tfoot>
                 </table>
             </div>
-
             <div id="tileColorSummary" class="color-summary" style="display:none;"></div>
         </div>
 
@@ -448,7 +451,7 @@
                     <input type="number" id="paintArea" value="10" step="0.1">
                 </div>
                 <div class="form-group">
-                    <label>Количество слоёв краски</label>
+                    <label>Слоёв краски</label>
                     <select id="paintLayers">
                         <option value="1">1 слой</option>
                         <option value="2" selected>2 слоя</option>
@@ -473,53 +476,95 @@
                     </div>
                 </div>
             </div>
-
             <div class="grid-2" style="margin-top:12px;">
                 <div class="form-group">
-                    <label>Количество слоёв грунта (для всех записей)</label>
+                    <label>Слоёв грунта (для всех)</label>
                     <select id="primerLayers">
                         <option value="1" selected>1 слой</option>
                         <option value="2">2 слоя</option>
                     </select>
-                    <span class="hint">Расход грунта: 0.1 л/м² на слой</span>
+                    <span class="hint">0.1 л/м² на слой</span>
                 </div>
-                <div></div>
+                <div class="form-group">
+                    <label>Комментарий</label>
+                    <input type="text" id="paintComment" placeholder="Напр. Коридор" value="">
+                </div>
             </div>
-
             <div class="action-row">
-                <button class="btn btn-success" id="addPaintBtn">➕ Добавить вид краски</button>
+                <button class="btn btn-success" id="addPaintBtn">➕ Добавить</button>
                 <button class="btn btn-outline" id="clearPaintBtn">🗑️ Очистить</button>
                 <span class="spacer"></span>
                 <span class="info-hint">Краска: 0.1 л/м² на слой · Грунт: 0.1 л/м² на слой</span>
             </div>
-
             <div class="table-wrap">
                 <table>
                     <thead>
-                        <tr>
-                            <th>Площадь, м²</th>
-                            <th>Слоёв краски</th>
-                            <th>Цвет</th>
-                            <th>Краска, л</th>
-                            <th>Грунт, л</th>
-                            <th></th>
-                        </tr>
+                        <tr><th>Объект</th><th>Площадь</th><th>Слоёв</th><th>Цвет</th><th>Краска, л</th><th>Грунт, л</th><th></th></tr>
                     </thead>
                     <tbody id="paintTableBody"></tbody>
                     <tfoot>
                         <tr class="total-row">
+                            <td><strong>ИТОГО</strong></td><td></td><td></td><td></td>
+                            <td id="totalPaintLiters">0</td><td id="totalPrimerLiters">0</td><td></td>
+                        </tr>
+                    </tfoot>
+                </table>
+            </div>
+            <div id="paintColorSummary" class="color-summary" style="display:none;"></div>
+        </div>
+
+        <!-- ========= КВАРЦВИНИЛ ========= -->
+        <div id="tab-vinyl" class="section-panel">
+            <div class="grid-2">
+                <div class="form-group">
+                    <label>Площадь (чистая), м²</label>
+                    <input type="number" id="vinylArea" value="20" step="0.1">
+                </div>
+                <div class="form-group">
+                    <label>Тип укладки</label>
+                    <select id="vinylPattern">
+                        <option value="straight">Прямая (запас 8%)</option>
+                        <option value="diagonal">Диагональная (запас 15%)</option>
+                    </select>
+                </div>
+            </div>
+            <div class="grid-1" style="margin-top:12px;">
+                <div class="form-group">
+                    <label>Комментарий (объект)</label>
+                    <input type="text" id="vinylComment" placeholder="Напр. Гостиная" value="">
+                </div>
+            </div>
+            <div class="action-row">
+                <button class="btn btn-warning" id="addVinylBtn">➕ Добавить участок</button>
+                <button class="btn btn-outline" id="clearVinylBtn">🗑️ Очистить</button>
+                <span class="spacer"></span>
+                <span class="info-hint">Клей: 0.4 кг/м² + запас 8%</span>
+            </div>
+            <div class="table-wrap">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Объект</th>
+                            <th>Чистая площадь, м²</th>
+                            <th>Тип укладки</th>
+                            <th>Итоговая площадь (с запасом), м²</th>
+                            <th>Клей, кг</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody id="vinylTableBody"></tbody>
+                    <tfoot>
+                        <tr class="total-row">
                             <td><strong>ИТОГО</strong></td>
+                            <td id="totalVinylArea">0</td>
                             <td></td>
-                            <td></td>
-                            <td id="totalPaintLiters">0</td>
-                            <td id="totalPrimerLiters">0</td>
+                            <td id="totalVinylMaterial">0</td>
+                            <td id="totalVinylGlue">0</td>
                             <td></td>
                         </tr>
                     </tfoot>
                 </table>
             </div>
-
-            <div id="paintColorSummary" class="color-summary" style="display:none;"></div>
         </div>
 
     </div>
@@ -527,16 +572,16 @@
 
 <script>
     (function() {
-        // Хранилище
-        let tileEntries = [];
-        let paintEntries = [];
-
-        // Константы
+        // ----- Константы -----
         const GROUT_DENSITY = 1.78;
         const PAINT_RATE = 0.1;
         const PRIMER_RATE = 0.1;
+        const VINYL_GLUE_RATE = 0.4; // кг/м²
+        const VINYL_WASTE_STRAIGHT = 0.08; // 8%
+        const VINYL_WASTE_DIAGONAL = 0.15; // 15%
+        const GLUE_WASTE = 0.08; // 8% всегда для клея
 
-        // Цвета
+        // ----- Цвета -----
         const colorHexMap = {
             'белый': '#ffffff',
             'серый': '#808080',
@@ -562,7 +607,28 @@
             }
         }
 
-        // ----- ПЛИТКА -----
+        // ----- Хранилище -----
+        let tileEntries = [];
+        let paintEntries = [];
+        let vinylEntries = [];
+
+        // ----- Сохранение / загрузка -----
+        function saveData() {
+            localStorage.setItem('tileEntries', JSON.stringify(tileEntries));
+            localStorage.setItem('paintEntries', JSON.stringify(paintEntries));
+            localStorage.setItem('vinylEntries', JSON.stringify(vinylEntries));
+        }
+
+        function loadData() {
+            const tileSaved = localStorage.getItem('tileEntries');
+            const paintSaved = localStorage.getItem('paintEntries');
+            const vinylSaved = localStorage.getItem('vinylEntries');
+            if (tileSaved) try { tileEntries = JSON.parse(tileSaved); } catch(e) { tileEntries = []; }
+            if (paintSaved) try { paintEntries = JSON.parse(paintSaved); } catch(e) { paintEntries = []; }
+            if (vinylSaved) try { vinylEntries = JSON.parse(vinylSaved); } catch(e) { vinylEntries = []; }
+        }
+
+        // ===================== ПЛИТКА =====================
         function calcGrout(length, width, thick, joint, area) {
             const part = (length + width) / (length * width);
             return part * joint * thick * GROUT_DENSITY * area;
@@ -579,7 +645,7 @@
             const colorMap = {};
 
             tileEntries.forEach((entry, index) => {
-                const { length, width, thick, joint, area, color } = entry;
+                const { length, width, thick, joint, area, color, comment } = entry;
                 const grout = calcGrout(length, width, thick, joint, area);
                 const bags = calcGlueBags(area);
 
@@ -592,6 +658,7 @@
 
                 const row = document.createElement('tr');
                 row.innerHTML = `
+                    <td>${comment || ''}</td>
                     <td>${length}×${width}</td>
                     <td>${thick}</td>
                     <td>${joint}</td>
@@ -626,6 +693,7 @@
                 btn.addEventListener('click', function() {
                     const idx = parseInt(this.dataset.index);
                     tileEntries.splice(idx, 1);
+                    saveData();
                     renderTileTable();
                 });
             });
@@ -638,6 +706,7 @@
             const joint = parseFloat(document.getElementById('jointWidth').value);
             const area = parseFloat(document.getElementById('tileArea').value);
             const color = document.getElementById('groutColor').value;
+            const comment = document.getElementById('tileComment').value.trim();
 
             if ([length, width, thick, joint, area].some(v => isNaN(v) || v <= 0)) {
                 alert('Все числовые значения должны быть положительными (шов может быть 0).');
@@ -645,16 +714,20 @@
             }
             if (joint < 0) { alert('Шов не может быть отрицательным.'); return; }
 
-            tileEntries.push({ length, width, thick, joint, area, color });
+            tileEntries.push({ length, width, thick, joint, area, color, comment });
+            saveData();
             renderTileTable();
+            document.getElementById('tileComment').value = '';
         }
 
         function clearTileTable() {
+            if (!confirm('Удалить все записи по плитке?')) return;
             tileEntries = [];
+            saveData();
             renderTileTable();
         }
 
-        // ----- КРАСКА -----
+        // ===================== КРАСКА =====================
         function renderPaintTable() {
             const tbody = document.getElementById('paintTableBody');
             tbody.innerHTML = '';
@@ -663,7 +736,7 @@
             const primerLayers = parseInt(document.getElementById('primerLayers').value);
 
             paintEntries.forEach((entry, index) => {
-                const { area, layers, color } = entry;
+                const { area, layers, color, comment } = entry;
                 const paintL = area * PAINT_RATE * layers;
                 const primerL = area * PRIMER_RATE * primerLayers;
 
@@ -675,6 +748,7 @@
 
                 const row = document.createElement('tr');
                 row.innerHTML = `
+                    <td>${comment || ''}</td>
                     <td>${area.toFixed(1)}</td>
                     <td>${layers}</td>
                     <td><span class="color-swatch" style="background:${getColorHex(color)};"></span>${color}</td>
@@ -706,6 +780,7 @@
                 btn.addEventListener('click', function() {
                     const idx = parseInt(this.dataset.index);
                     paintEntries.splice(idx, 1);
+                    saveData();
                     renderPaintTable();
                 });
             });
@@ -715,27 +790,99 @@
             const area = parseFloat(document.getElementById('paintArea').value);
             const layers = parseInt(document.getElementById('paintLayers').value);
             const color = document.getElementById('paintColor').value;
+            const comment = document.getElementById('paintComment').value.trim();
 
             if (isNaN(area) || area <= 0) {
                 alert('Площадь должна быть положительным числом.');
                 return;
             }
 
-            paintEntries.push({ area, layers, color });
+            paintEntries.push({ area, layers, color, comment });
+            saveData();
             renderPaintTable();
+            document.getElementById('paintComment').value = '';
         }
 
         function clearPaintTable() {
+            if (!confirm('Удалить все записи по краске?')) return;
             paintEntries = [];
+            saveData();
             renderPaintTable();
         }
 
-        // ----- Вкладки и тема -----
+        // ===================== КВАРЦВИНИЛ =====================
+        function renderVinylTable() {
+            const tbody = document.getElementById('vinylTableBody');
+            tbody.innerHTML = '';
+            let totalArea = 0, totalMaterial = 0, totalGlue = 0;
+
+            vinylEntries.forEach((entry, index) => {
+                const { area, pattern, comment } = entry;
+                const waste = (pattern === 'straight') ? VINYL_WASTE_STRAIGHT : VINYL_WASTE_DIAGONAL;
+                const materialArea = area * (1 + waste);
+                const glue = area * VINYL_GLUE_RATE * (1 + GLUE_WASTE);
+                const patternLabel = (pattern === 'straight') ? 'Прямая' : 'Диагональная';
+
+                totalArea += area;
+                totalMaterial += materialArea;
+                totalGlue += glue;
+
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td>${comment || ''}</td>
+                    <td>${area.toFixed(1)}</td>
+                    <td>${patternLabel}</td>
+                    <td>${materialArea.toFixed(2)}</td>
+                    <td>${glue.toFixed(2)}</td>
+                    <td><button class="remove-btn" data-index="${index}" data-type="vinyl">✕</button></td>
+                `;
+                tbody.appendChild(row);
+            });
+
+            document.getElementById('totalVinylArea').textContent = totalArea.toFixed(1);
+            document.getElementById('totalVinylMaterial').textContent = totalMaterial.toFixed(2);
+            document.getElementById('totalVinylGlue').textContent = totalGlue.toFixed(2);
+
+            document.querySelectorAll('#vinylTableBody .remove-btn').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const idx = parseInt(this.dataset.index);
+                    vinylEntries.splice(idx, 1);
+                    saveData();
+                    renderVinylTable();
+                });
+            });
+        }
+
+        function addVinylEntry() {
+            const area = parseFloat(document.getElementById('vinylArea').value);
+            const pattern = document.getElementById('vinylPattern').value;
+            const comment = document.getElementById('vinylComment').value.trim();
+
+            if (isNaN(area) || area <= 0) {
+                alert('Площадь должна быть положительным числом.');
+                return;
+            }
+
+            vinylEntries.push({ area, pattern, comment });
+            saveData();
+            renderVinylTable();
+            document.getElementById('vinylComment').value = '';
+        }
+
+        function clearVinylTable() {
+            if (!confirm('Удалить все записи по кварцвинилу?')) return;
+            vinylEntries = [];
+            saveData();
+            renderVinylTable();
+        }
+
+        // ===================== ВКЛАДКИ И ТЕМА =====================
         function setupTabs() {
             const tabs = document.querySelectorAll('.tab-btn');
             const panels = {
                 tile: document.getElementById('tab-tile'),
-                paint: document.getElementById('tab-paint')
+                paint: document.getElementById('tab-paint'),
+                vinyl: document.getElementById('tab-vinyl')
             };
             tabs.forEach(btn => {
                 btn.addEventListener('click', function() {
@@ -773,26 +920,41 @@
             });
         }
 
-        // ----- Инициализация -----
+        // ===================== ИНИЦИАЛИЗАЦИЯ =====================
         window.addEventListener('DOMContentLoaded', function() {
-            // Демо-данные
-            tileEntries.push({
-                length: 600, width: 1200, thick: 9, joint: 1.5, area: 30, color: 'серый'
-            });
-            paintEntries.push({ area: 10, layers: 2, color: 'зеленый' });
-            paintEntries.push({ area: 5, layers: 1, color: 'красный' });
+            loadData();
+
+            // Демо-записи, если пусто
+            if (tileEntries.length === 0) {
+                tileEntries.push({
+                    length: 600, width: 1200, thick: 9, joint: 1.5, area: 30, color: 'серый', comment: 'Ванная'
+                });
+            }
+            if (paintEntries.length === 0) {
+                paintEntries.push({ area: 10, layers: 2, color: 'зеленый', comment: 'Кухня' });
+                paintEntries.push({ area: 5, layers: 1, color: 'красный', comment: 'Прихожая' });
+            }
+            if (vinylEntries.length === 0) {
+                vinylEntries.push({ area: 20, pattern: 'straight', comment: 'Гостиная' });
+                vinylEntries.push({ area: 12, pattern: 'diagonal', comment: 'Коридор' });
+            }
 
             renderTileTable();
             renderPaintTable();
+            renderVinylTable();
 
             setupTabs();
             setupTheme();
 
+            // Обработчики
             document.getElementById('calcTileBtn').addEventListener('click', addTileEntry);
             document.getElementById('clearTileBtn').addEventListener('click', clearTileTable);
             document.getElementById('addPaintBtn').addEventListener('click', addPaintEntry);
             document.getElementById('clearPaintBtn').addEventListener('click', clearPaintTable);
+            document.getElementById('addVinylBtn').addEventListener('click', addVinylEntry);
+            document.getElementById('clearVinylBtn').addEventListener('click', clearVinylTable);
 
+            // Обновление превью цвета
             document.getElementById('groutColor').addEventListener('change', function() {
                 updateColorPreview('groutColor', 'groutColorPreview');
             });
