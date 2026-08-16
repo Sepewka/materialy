@@ -8,52 +8,58 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700&display=swap" rel="stylesheet">
     <style>
-        /* ----- Базовые стили (полностью сохранены) ----- */
         :root {
-            --bg-page: #eef2f7;
-            --glass-bg: rgba(255, 255, 255, 0.55);
-            --glass-border: rgba(255, 255, 255, 0.40);
-            --glass-shadow: 0 20px 50px rgba(0, 0, 0, 0.06), 0 0 0 1px rgba(255, 255, 255, 0.3);
-            --text-primary: #1a2634;
-            --text-secondary: #4a5e74;
-            --input-bg: rgba(255, 255, 255, 0.75);
-            --input-border: #d0d9e6;
-            --input-focus: #2a7de1;
-            --btn-primary: #2a7de1;
-            --btn-primary-hover: #1a5fb0;
-            --btn-success: #0f9d58;
-            --btn-success-hover: #0b7e47;
-            --btn-warning: #e67e22;
-            --btn-warning-hover: #d35400;
-            --btn-danger: #dc3545;
-            --btn-danger-hover: #b02a37;
-            --table-header: #e9edf4;
-            --table-border: #dce5ef;
-            --total-bg: #eef4fc;
-            --card-radius: 24px;
-            --transition: 0.25s ease;
+            --bg-page: #f5f4ef;
+            --paper: #ffffff;
+            --paper-border: #e5e2d8;
+            --paper-shadow: 0 1px 2px rgba(30, 28, 24, 0.04), 0 10px 24px -14px rgba(30, 28, 24, 0.14);
+            --text-primary: #26241f;
+            --text-secondary: #79766d;
+            --input-bg: #faf9f5;
+            --input-border: #e3e0d5;
+            --input-focus: #cc785c;
+            --accent: #cc785c;
+            --accent-soft: rgba(204, 120, 92, 0.10);
+            --btn-primary: #cc785c;
+            --btn-primary-hover: #b8674d;
+            --btn-success: #6e8f6e;
+            --btn-success-hover: #5c7a5c;
+            --btn-warning: #b98d4e;
+            --btn-warning-hover: #a17840;
+            --btn-danger: #b25b4c;
+            --btn-danger-hover: #984c3f;
+            --table-header: #f7f6f1;
+            --table-border: #ece9de;
+            --table-stripe: rgba(30, 28, 24, 0.015);
+            --total-bg: #f7f0e9;
+            --card-radius: 16px;
+            --radius-md: 10px;
+            --transition: 0.2s cubic-bezier(.4,0,.2,1);
         }
         body.dark {
-            --bg-page: #181e2a;
-            --glass-bg: rgba(30, 37, 50, 0.72);
-            --glass-border: rgba(255, 255, 255, 0.06);
-            --glass-shadow: 0 20px 50px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(255, 255, 255, 0.04);
-            --text-primary: #e8ecf1;
-            --text-secondary: #a0b2c6;
-            --input-bg: rgba(45, 55, 72, 0.8);
-            --input-border: #3a455a;
-            --input-focus: #5a9aff;
-            --btn-primary: #4a8af4;
-            --btn-primary-hover: #2a7de1;
-            --btn-success: #2ea86b;
-            --btn-success-hover: #0f9d58;
-            --btn-warning: #f39c12;
-            --btn-warning-hover: #e67e22;
-            --btn-danger: #e04a5a;
-            --btn-danger-hover: #c0394b;
-            --table-header: #2a3140;
-            --table-border: #3a455a;
-            --total-bg: #262e3f;
+            --bg-page: #1a1918;
+            --paper: #201f1c;
+            --paper-border: #34322c;
+            --paper-shadow: 0 1px 2px rgba(0, 0, 0, 0.3), 0 14px 30px -16px rgba(0, 0, 0, 0.55);
+            --text-primary: #ece9e1;
+            --text-secondary: #9c988c;
+            --input-bg: #262420;
+            --input-border: #3a382f;
+            --input-focus: #d99274;
+            --accent: #d99274;
+            --accent-soft: rgba(217, 146, 116, 0.14);
+            --btn-primary: #d99274;
+            --btn-primary-hover: #cc785c;
+            --btn-success: #85a685;
+            --btn-success-hover: #6e8f6e;
+            --btn-warning: #c9a25e;
+            --btn-warning-hover: #b98d4e;
+            --btn-danger: #c67c6c;
+            --btn-danger-hover: #b25b4c;
+            --table-header: #221f1b;
+            --table-border: #34322c;
+            --table-stripe: rgba(255, 255, 255, 0.02);
+            --total-bg: #292219;
         }
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body {
@@ -65,17 +71,15 @@
             justify-content: center;
             align-items: center;
             padding: 24px;
-            transition: background var(--transition), color var(--transition);
+            transition: background-color var(--transition), color var(--transition);
         }
-        .app { width: 100%; max-width: 1100px; }
+        .app { width: 100%; max-width: 1080px; }
         .glass {
-            background: var(--glass-bg);
-            backdrop-filter: blur(16px);
-            -webkit-backdrop-filter: blur(16px);
+            background: var(--paper);
             border-radius: var(--card-radius);
             padding: 32px 34px;
-            box-shadow: var(--glass-shadow);
-            border: 1px solid var(--glass-border);
+            box-shadow: var(--paper-shadow);
+            border: 1px solid var(--paper-border);
             transition: background var(--transition), box-shadow var(--transition), border var(--transition);
         }
         .header {
@@ -84,24 +88,43 @@
             align-items: center;
             margin-bottom: 28px;
             flex-wrap: wrap;
-            gap: 12px;
+            gap: 14px;
         }
-        .header h1 {
-            font-size: 28px;
-            font-weight: 700;
-            letter-spacing: -0.4px;
-            color: var(--text-primary);
+        .header-text { display: flex; align-items: center; gap: 14px; }
+        .icon-badge {
+            width: 42px;
+            height: 42px;
+            flex-shrink: 0;
+            border-radius: 11px;
             display: flex;
             align-items: center;
-            gap: 10px;
+            justify-content: center;
+            background: var(--input-bg);
+            border: 1px solid var(--input-border);
+            color: var(--accent);
+            transition: background var(--transition), color var(--transition);
+        }
+        .icon-badge svg { width: 21px; height: 21px; }
+        .header h1 {
+            font-size: 22px;
+            font-weight: 700;
+            letter-spacing: -0.2px;
+            color: var(--text-primary);
+            line-height: 1.2;
+        }
+        .header .subtitle {
+            font-size: 13px;
+            color: var(--text-secondary);
+            margin-top: 2px;
+            font-weight: 500;
         }
         .theme-toggle {
             background: var(--input-bg);
             border: 1px solid var(--input-border);
-            border-radius: 40px;
-            padding: 8px 20px;
-            font-size: 15px;
-            font-weight: 500;
+            border-radius: 999px;
+            padding: 8px 16px;
+            font-size: 13.5px;
+            font-weight: 600;
             cursor: pointer;
             color: var(--text-primary);
             display: flex;
@@ -109,44 +132,117 @@
             gap: 8px;
             transition: background var(--transition), border var(--transition);
         }
-        .theme-toggle:hover { background: var(--glass-border); }
+        .theme-toggle:hover { background: var(--table-border); }
         .tabs {
             display: flex;
-            gap: 6px;
-            border-bottom: 2px solid var(--table-border);
-            padding-bottom: 4px;
-            margin-bottom: 28px;
+            gap: 3px;
+            background: var(--input-bg);
+            border: 1px solid var(--input-border);
+            padding: 4px;
+            border-radius: 12px;
+            margin-bottom: 26px;
             flex-wrap: wrap;
         }
         .tab-btn {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 7px;
             background: transparent;
-            border: none;
-            padding: 10px 22px;
-            font-size: 15px;
+            border: 1px solid transparent;
+            padding: 9px 16px;
+            font-size: 14px;
             font-weight: 600;
             color: var(--text-secondary);
             cursor: pointer;
-            border-radius: 40px 40px 0 0;
+            border-radius: 8px;
             transition: var(--transition);
-            position: relative;
+            white-space: nowrap;
         }
-        .tab-btn:hover { color: var(--text-primary); background: rgba(255,255,255,0.04); }
+        .tab-btn svg { width: 16px; height: 16px; flex-shrink: 0; }
+        .tab-btn:hover { color: var(--text-primary); }
         .tab-btn.active {
-            color: var(--btn-primary);
-            background: rgba(42,125,225,0.08);
-        }
-        .tab-btn.active::after {
-            content: '';
-            position: absolute;
-            bottom: -2px;
-            left: 20%;
-            width: 60%;
-            height: 3px;
-            border-radius: 4px;
-            background: var(--btn-primary);
+            color: var(--text-primary);
+            background: var(--paper);
+            border-color: var(--paper-border);
+            box-shadow: 0 1px 3px rgba(30, 28, 24, 0.08);
         }
         .section-panel { display: none; animation: fadeIn 0.3s ease; }
         .section-panel.active { display: block; }
+        .tabs-content { position: relative; transition: min-height 0.2s ease; }
+        .section-panel.measuring {
+            display: block !important;
+            position: absolute;
+            top: 0; left: 0; right: 0;
+            visibility: hidden;
+            pointer-events: none;
+            z-index: -1;
+            animation: none;
+        }
+        .summary-panel {
+            background: var(--total-bg);
+            border: 1px solid var(--input-border);
+            border-radius: var(--radius-md);
+            padding: 16px 18px;
+            margin-bottom: 22px;
+        }
+        .summary-panel-title {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 10px;
+            font-size: 12.5px;
+            font-weight: 700;
+            color: var(--text-secondary);
+            text-transform: uppercase;
+            letter-spacing: 0.3px;
+            margin-bottom: 12px;
+        }
+        .summary-panel-title-text { display: flex; align-items: center; gap: 8px; }
+        .summary-panel-title svg { width: 14px; height: 14px; color: var(--accent); flex-shrink: 0; }
+        .summary-clear-btn {
+            padding: 6px 12px;
+            font-size: 12px;
+            text-transform: none;
+            letter-spacing: normal;
+            color: var(--btn-danger);
+        }
+        .summary-clear-btn svg { width: 13px; height: 13px; color: var(--btn-danger); }
+        .summary-clear-btn:hover { background: rgba(178, 91, 76, 0.1); border-color: var(--btn-danger); }
+        .summary-panel-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 16px;
+        }
+        .summary-block {
+            background: var(--paper);
+            border: 1px solid var(--paper-border);
+            border-radius: 8px;
+            padding: 12px 14px;
+        }
+        .summary-block-label {
+            font-size: 12px;
+            font-weight: 700;
+            color: var(--accent);
+            margin-bottom: 8px;
+        }
+        .summary-block-row {
+            display: flex;
+            align-items: baseline;
+            justify-content: space-between;
+            gap: 8px;
+            font-size: 13.5px;
+            color: var(--text-primary);
+            padding: 3px 0;
+        }
+        .summary-block-row span:first-child { color: var(--text-secondary); }
+        .summary-block-row .summary-value { margin-left: auto; display: flex; align-items: baseline; gap: 4px; }
+        .summary-block-row .unit { color: var(--text-secondary); font-size: 11.5px; }
+        .summary-block-row strong { font-weight: 700; }
+        @media (max-width: 768px) {
+            .summary-panel-grid { grid-template-columns: 1fr; }
+        }
         @keyframes fadeIn {
             from { opacity: 0; transform: translateY(8px); }
             to { opacity: 1; transform: translateY(0); }
@@ -157,31 +253,31 @@
         .form-group {
             display: flex;
             flex-direction: column;
-            gap: 5px;
+            gap: 6px;
         }
         .form-group label {
-            font-size: 13px;
-            font-weight: 500;
+            font-size: 12.5px;
+            font-weight: 600;
             color: var(--text-secondary);
-            letter-spacing: 0.3px;
         }
         .form-group input,
         .form-group select {
-            padding: 10px 14px;
-            border-radius: 12px;
+            padding: 10px 13px;
+            border-radius: var(--radius-md);
             border: 1px solid var(--input-border);
             background: var(--input-bg);
             color: var(--text-primary);
             font-size: 15px;
             font-weight: 500;
-            transition: border var(--transition), box-shadow var(--transition);
+            transition: border var(--transition), box-shadow var(--transition), background var(--transition);
             outline: none;
             font-family: inherit;
         }
         .form-group input:focus,
         .form-group select:focus {
             border-color: var(--input-focus);
-            box-shadow: 0 0 0 3px rgba(42,125,225,0.15);
+            background: var(--paper);
+            box-shadow: 0 0 0 3px var(--accent-soft);
         }
         .form-group input[type="number"] { -moz-appearance: textfield; }
         .form-group input[type="number"]::-webkit-outer-spin-button,
@@ -192,7 +288,7 @@
         .form-group .hint {
             font-size: 12px;
             color: var(--text-secondary);
-            opacity: 0.7;
+            opacity: 0.8;
         }
         .color-select-wrapper {
             display: flex;
@@ -204,49 +300,46 @@
             width: 28px;
             height: 28px;
             border-radius: 50%;
-            border: 2px solid var(--glass-border);
+            border: 2px solid var(--paper);
+            box-shadow: 0 0 0 1px var(--input-border);
             flex-shrink: 0;
             transition: background 0.2s;
         }
         .btn {
-            padding: 10px 24px;
-            border: none;
-            border-radius: 40px;
+            padding: 10px 20px;
+            border: 1px solid var(--input-border);
+            border-radius: var(--radius-md);
             font-weight: 600;
             font-size: 14px;
             cursor: pointer;
-            transition: background var(--transition), transform var(--transition), box-shadow var(--transition);
+            transition: background var(--transition), transform var(--transition), box-shadow var(--transition), border-color var(--transition);
             display: inline-flex;
             align-items: center;
-            gap: 6px;
-            background: var(--glass-border);
+            gap: 7px;
+            background: var(--input-bg);
             color: var(--text-primary);
         }
-        .btn:active { transform: scale(0.96); }
+        .btn svg { width: 15px; height: 15px; flex-shrink: 0; }
+        .btn:hover { transform: translateY(-1px); }
+        .btn:active { transform: scale(0.97); }
         .btn-primary {
             background: var(--btn-primary);
             color: #fff;
+            border-color: transparent;
         }
-        .btn-primary:hover {
-            background: var(--btn-primary-hover);
-            box-shadow: 0 6px 16px rgba(42,125,225,0.25);
-        }
+        .btn-primary:hover { background: var(--btn-primary-hover); box-shadow: 0 6px 14px -6px rgba(204,120,92,0.5); }
         .btn-success {
             background: var(--btn-success);
             color: #fff;
+            border-color: transparent;
         }
-        .btn-success:hover {
-            background: var(--btn-success-hover);
-            box-shadow: 0 6px 16px rgba(15,157,88,0.25);
-        }
+        .btn-success:hover { background: var(--btn-success-hover); box-shadow: 0 6px 14px -6px rgba(110,143,110,0.5); }
         .btn-warning {
             background: var(--btn-warning);
             color: #fff;
+            border-color: transparent;
         }
-        .btn-warning:hover {
-            background: var(--btn-warning-hover);
-            box-shadow: 0 6px 16px rgba(230,126,34,0.25);
-        }
+        .btn-warning:hover { background: var(--btn-warning-hover); box-shadow: 0 6px 14px -6px rgba(185,141,78,0.5); }
         .btn-outline {
             background: transparent;
             border: 1.5px solid var(--input-border);
@@ -266,14 +359,18 @@
         }
         .action-row .spacer { flex: 1; }
         .action-row .info-hint {
-            font-size: 13px;
+            font-size: 12.5px;
+            font-weight: 500;
             color: var(--text-secondary);
-            opacity: 0.8;
+            background: var(--input-bg);
+            border: 1px solid var(--input-border);
+            padding: 6px 13px;
+            border-radius: 999px;
         }
         .table-wrap {
             overflow-x: auto;
             margin-top: 16px;
-            border-radius: 14px;
+            border-radius: var(--radius-md);
             border: 1px solid var(--table-border);
         }
         table {
@@ -286,65 +383,92 @@
             padding: 12px 14px;
             text-align: left;
             font-weight: 600;
-            color: var(--text-primary);
-            border-bottom: 2px solid var(--table-border);
+            font-size: 12px;
+            color: var(--text-secondary);
+            border-bottom: 1px solid var(--table-border);
+            white-space: nowrap;
         }
         td {
             padding: 12px 14px;
             border-bottom: 1px solid var(--table-border);
             color: var(--text-primary);
         }
+        tbody tr { transition: background var(--transition); }
+        tbody tr:nth-child(even) { background: var(--table-stripe); }
+        tbody tr:hover { background: var(--accent-soft); }
+        .empty-row td {
+            text-align: center;
+            padding: 30px 14px;
+            color: var(--text-secondary);
+            font-style: italic;
+            font-size: 13.5px;
+        }
+        .empty-row:hover { background: transparent !important; }
         .total-row td {
             font-weight: 700;
-            background: var(--total-bg);
-            border-top: 2px solid var(--btn-primary);
+            background: var(--total-bg) !important;
+            border-top: 1px solid var(--accent);
         }
         .remove-btn {
             background: none;
             border: none;
+            width: 26px;
+            height: 26px;
+            border-radius: 7px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
             color: var(--btn-danger);
-            font-size: 18px;
+            font-size: 15px;
             cursor: pointer;
-            transition: transform 0.2s;
+            transition: background 0.2s, transform 0.2s;
             line-height: 1;
         }
-        .remove-btn:hover { transform: scale(1.3); }
+        .remove-btn:hover { background: rgba(178, 91, 76, 0.12); transform: scale(1.06); }
         .color-swatch {
             display: inline-block;
-            width: 20px;
-            height: 20px;
+            width: 16px;
+            height: 16px;
             border-radius: 50%;
-            margin-right: 6px;
-            border: 1px solid rgba(0,0,0,0.08);
+            margin-right: 7px;
+            box-shadow: 0 0 0 1px var(--table-border);
             vertical-align: middle;
         }
         .color-summary {
-            margin-top: 18px;
-            padding: 14px 20px;
+            margin-top: 16px;
+            padding: 14px 18px;
             background: var(--input-bg);
-            border-radius: 14px;
-            border: 1px solid var(--glass-border);
+            border-radius: var(--radius-md);
+            border: 1px solid var(--input-border);
             display: flex;
             flex-wrap: wrap;
-            gap: 20px 30px;
+            gap: 18px 28px;
         }
         .color-summary-item {
             display: flex;
             align-items: center;
             gap: 8px;
-            font-size: 14px;
+            font-size: 13.5px;
         }
         .color-summary-item .swatch {
-            width: 20px;
-            height: 20px;
+            width: 16px;
+            height: 16px;
             border-radius: 50%;
-            border: 1px solid rgba(0,0,0,0.08);
+            box-shadow: 0 0 0 1px var(--table-border);
+        }
+        .app-footer {
+            margin-top: 24px;
+            text-align: center;
+            font-size: 12px;
+            color: var(--text-secondary);
+            opacity: 0.75;
         }
         @media (max-width: 768px) {
             .grid-2, .grid-3, .grid-4 { grid-template-columns: 1fr; }
-            .glass { padding: 20px 16px; }
-            .header h1 { font-size: 22px; }
-            .tab-btn { padding: 8px 16px; font-size: 14px; }
+            .glass { padding: 22px 16px; }
+            .header h1 { font-size: 19px; }
+            .tab-btn { padding: 8px 10px; font-size: 12.5px; }
+            .tab-btn svg { width: 14px; height: 14px; }
             .action-row { flex-direction: column; align-items: stretch; }
             .action-row .spacer { display: none; }
         }
@@ -356,7 +480,15 @@
 
         <!-- Шапка -->
         <div class="header">
-            <h1>🧮 Калькулятор материалов</h1>
+            <div class="header-text">
+                <span class="icon-badge">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 2 7 12 12 22 7 12 2"/><polyline points="2 17 12 22 22 17"/><polyline points="2 12 12 17 22 12"/></svg>
+                </span>
+                <div>
+                    <h1>Калькулятор материалов</h1>
+                    <div class="subtitle">Плитка · Краска · Кварцвинил</div>
+                </div>
+            </div>
             <button class="theme-toggle" id="themeToggle">
                 <span id="themeIcon">☀️</span> <span id="themeLabel">Светлая</span>
             </button>
@@ -364,10 +496,55 @@
 
         <!-- Вкладки -->
         <div class="tabs">
-            <button class="tab-btn active" data-tab="tile">Плитка</button>
-            <button class="tab-btn" data-tab="paint">Краска</button>
-            <button class="tab-btn" data-tab="vinyl">Кварцвинил</button>
+            <button class="tab-btn active" data-tab="tile">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>
+                Плитка
+            </button>
+            <button class="tab-btn" data-tab="paint">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2s7 8.5 7 13a7 7 0 0 1-14 0c0-4.5 7-13 7-13z"/></svg>
+                Краска
+            </button>
+            <button class="tab-btn" data-tab="vinyl">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="4" rx="1"/><rect x="3" y="10" width="18" height="4" rx="1"/><rect x="3" y="16" width="18" height="4" rx="1"/></svg>
+                Кварцвинил
+            </button>
         </div>
+
+        <!-- ========= СВОДКА (видна всегда, без переключения вкладок) ========= -->
+        <div class="summary-panel" id="summaryPanel">
+            <div class="summary-panel-title">
+                <span class="summary-panel-title-text">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18"/><path d="M18 17V9"/><path d="M13 17V5"/><path d="M8 17v-3"/></svg>
+                    Сводный итог по всем разделам
+                </span>
+                <button class="btn btn-outline summary-clear-btn" id="clearAllBtn">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"/><path d="M10 11v6"/><path d="M14 11v6"/><path d="M9 6V4a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2"/></svg>
+                    Очистить всё
+                </button>
+            </div>
+            <div class="summary-panel-grid">
+                <div class="summary-block">
+                    <div class="summary-block-label">Плитка</div>
+                    <div class="summary-block-row"><span>Площадь</span><span class="summary-value"><strong id="sumTileArea">0</strong><span class="unit">м²</span></span></div>
+                    <div class="summary-block-row"><span>Клей</span><span class="summary-value"><strong id="sumTileBags">0</strong><span class="unit">меш.</span></span></div>
+                    <div class="summary-block-row"><span>Затирка</span><span class="summary-value"><strong id="sumTileGrout">0</strong><span class="unit">кг</span></span></div>
+                </div>
+                <div class="summary-block">
+                    <div class="summary-block-label">Краска</div>
+                    <div class="summary-block-row"><span>Краска</span><span class="summary-value"><strong id="sumPaintLiters">0</strong><span class="unit">л</span></span></div>
+                    <div class="summary-block-row"><span>Грунт</span><span class="summary-value"><strong id="sumPrimerLiters">0</strong><span class="unit">л</span></span></div>
+                </div>
+                <div class="summary-block">
+                    <div class="summary-block-label">Кварцвинил</div>
+                    <div class="summary-block-row"><span>Площадь</span><span class="summary-value"><strong id="sumVinylArea">0</strong><span class="unit">м²</span></span></div>
+                    <div class="summary-block-row"><span>С запасом</span><span class="summary-value"><strong id="sumVinylMaterial">0</strong><span class="unit">м²</span></span></div>
+                    <div class="summary-block-row"><span>Клей</span><span class="summary-value"><strong id="sumVinylGlue">0</strong><span class="unit">кг</span></span></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ========= КОНТЕЙНЕР ВКЛАДОК (для синхронизации высоты) ========= -->
+        <div class="tabs-content" id="tabsContent">
 
         <!-- ========= ПЛИТКА ========= -->
         <div id="tab-tile" class="section-panel active">
@@ -418,8 +595,14 @@
                 </div>
             </div>
             <div class="action-row">
-                <button class="btn btn-primary" id="calcTileBtn">➕ Добавить</button>
-                <button class="btn btn-outline" id="clearTileBtn">🗑️ Очистить</button>
+                <button class="btn btn-primary" id="calcTileBtn">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+                    Добавить
+                </button>
+                <button class="btn btn-outline" id="clearTileBtn">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"/><path d="M10 11v6"/><path d="M14 11v6"/><path d="M9 6V4a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2"/></svg>
+                    Очистить
+                </button>
                 <span class="spacer"></span>
                 <span class="info-hint">Клей: 1 мешок (25 кг) на 5 м² · Затирка: плотность 1.78</span>
             </div>
@@ -474,6 +657,7 @@
                         </select>
                         <span class="color-preview" id="paintColorPreview" style="background:#808080;"></span>
                     </div>
+                    <span class="hint">⚠️ Колеровка платная у Tikkurila и Luminex, у остальных брендов — бесплатно</span>
                 </div>
             </div>
             <div class="grid-2" style="margin-top:12px;">
@@ -491,8 +675,14 @@
                 </div>
             </div>
             <div class="action-row">
-                <button class="btn btn-success" id="addPaintBtn">➕ Добавить</button>
-                <button class="btn btn-outline" id="clearPaintBtn">🗑️ Очистить</button>
+                <button class="btn btn-success" id="addPaintBtn">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+                    Добавить
+                </button>
+                <button class="btn btn-outline" id="clearPaintBtn">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"/><path d="M10 11v6"/><path d="M14 11v6"/><path d="M9 6V4a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2"/></svg>
+                    Очистить
+                </button>
                 <span class="spacer"></span>
                 <span class="info-hint">Краска: 0.1 л/м² на слой · Грунт: 0.1 л/м² на слой</span>
             </div>
@@ -523,8 +713,8 @@
                 <div class="form-group">
                     <label>Тип укладки</label>
                     <select id="vinylPattern">
-                        <option value="straight">Прямая (запас 8%)</option>
-                        <option value="diagonal">Диагональная (запас 15%)</option>
+                        <option value="straight">Прямая (запас 5%)</option>
+                        <option value="diagonal">Диагональная (запас 7%)</option>
                     </select>
                 </div>
             </div>
@@ -535,8 +725,14 @@
                 </div>
             </div>
             <div class="action-row">
-                <button class="btn btn-warning" id="addVinylBtn">➕ Добавить участок</button>
-                <button class="btn btn-outline" id="clearVinylBtn">🗑️ Очистить</button>
+                <button class="btn btn-warning" id="addVinylBtn">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+                    Добавить участок
+                </button>
+                <button class="btn btn-outline" id="clearVinylBtn">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"/><path d="M10 11v6"/><path d="M14 11v6"/><path d="M9 6V4a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2"/></svg>
+                    Очистить
+                </button>
                 <span class="spacer"></span>
                 <span class="info-hint">Клей: 0.4 кг/м² + запас 8%</span>
             </div>
@@ -567,6 +763,11 @@
             </div>
         </div>
 
+        </div>
+        <!-- конец tabs-content -->
+
+        <div class="app-footer">Данные сохраняются локально в этом браузере</div>
+
     </div>
 </div>
 
@@ -577,8 +778,8 @@
         const PAINT_RATE = 0.1;
         const PRIMER_RATE = 0.1;
         const VINYL_GLUE_RATE = 0.4; // кг/м²
-        const VINYL_WASTE_STRAIGHT = 0.08; // 8%
-        const VINYL_WASTE_DIAGONAL = 0.15; // 15%
+        const VINYL_WASTE_STRAIGHT = 0.05; // 5%
+        const VINYL_WASTE_DIAGONAL = 0.07; // 7%
         const GLUE_WASTE = 0.08; // 8% всегда для клея
 
         // ----- Цвета -----
@@ -644,6 +845,10 @@
             let totalArea = 0, totalBags = 0, totalGrout = 0;
             const colorMap = {};
 
+            if (tileEntries.length === 0) {
+                tbody.innerHTML = '<tr class="empty-row"><td colspan="9">Пока нет записей — добавьте первую выше ↑</td></tr>';
+            }
+
             tileEntries.forEach((entry, index) => {
                 const { length, width, thick, joint, area, color, comment } = entry;
                 const grout = calcGrout(length, width, thick, joint, area);
@@ -674,6 +879,10 @@
             document.getElementById('totalTileArea').textContent = totalArea.toFixed(1);
             document.getElementById('totalTileBags').textContent = totalBags;
             document.getElementById('totalTileGrout').textContent = totalGrout.toFixed(2);
+            document.getElementById('sumTileArea').textContent = totalArea.toFixed(1);
+            document.getElementById('sumTileBags').textContent = totalBags;
+            document.getElementById('sumTileGrout').textContent = totalGrout.toFixed(2);
+            syncPanelHeights();
 
             const summary = document.getElementById('tileColorSummary');
             const keys = Object.keys(colorMap);
@@ -708,11 +917,11 @@
             const color = document.getElementById('groutColor').value;
             const comment = document.getElementById('tileComment').value.trim();
 
-            if ([length, width, thick, joint, area].some(v => isNaN(v) || v <= 0)) {
+            if ([length, width, thick, area].some(v => isNaN(v) || v <= 0)) {
                 alert('Все числовые значения должны быть положительными (шов может быть 0).');
                 return;
             }
-            if (joint < 0) { alert('Шов не может быть отрицательным.'); return; }
+            if (isNaN(joint) || joint < 0) { alert('Шов не может быть отрицательным.'); return; }
 
             tileEntries.push({ length, width, thick, joint, area, color, comment });
             saveData();
@@ -734,6 +943,10 @@
             let totalPaint = 0, totalPrimer = 0;
             const colorMap = {};
             const primerLayers = parseInt(document.getElementById('primerLayers').value);
+
+            if (paintEntries.length === 0) {
+                tbody.innerHTML = '<tr class="empty-row"><td colspan="7">Пока нет записей — добавьте первую выше ↑</td></tr>';
+            }
 
             paintEntries.forEach((entry, index) => {
                 const { area, layers, color, comment } = entry;
@@ -761,6 +974,9 @@
 
             document.getElementById('totalPaintLiters').textContent = totalPaint.toFixed(2);
             document.getElementById('totalPrimerLiters').textContent = totalPrimer.toFixed(2);
+            document.getElementById('sumPaintLiters').textContent = totalPaint.toFixed(2);
+            document.getElementById('sumPrimerLiters').textContent = totalPrimer.toFixed(2);
+            syncPanelHeights();
 
             const summary = document.getElementById('paintColorSummary');
             const keys = Object.keys(colorMap);
@@ -816,6 +1032,10 @@
             tbody.innerHTML = '';
             let totalArea = 0, totalMaterial = 0, totalGlue = 0;
 
+            if (vinylEntries.length === 0) {
+                tbody.innerHTML = '<tr class="empty-row"><td colspan="6">Пока нет записей — добавьте первую выше ↑</td></tr>';
+            }
+
             vinylEntries.forEach((entry, index) => {
                 const { area, pattern, comment } = entry;
                 const waste = (pattern === 'straight') ? VINYL_WASTE_STRAIGHT : VINYL_WASTE_DIAGONAL;
@@ -842,6 +1062,10 @@
             document.getElementById('totalVinylArea').textContent = totalArea.toFixed(1);
             document.getElementById('totalVinylMaterial').textContent = totalMaterial.toFixed(2);
             document.getElementById('totalVinylGlue').textContent = totalGlue.toFixed(2);
+            document.getElementById('sumVinylArea').textContent = totalArea.toFixed(1);
+            document.getElementById('sumVinylMaterial').textContent = totalMaterial.toFixed(2);
+            document.getElementById('sumVinylGlue').textContent = totalGlue.toFixed(2);
+            syncPanelHeights();
 
             document.querySelectorAll('#vinylTableBody .remove-btn').forEach(btn => {
                 btn.addEventListener('click', function() {
@@ -877,6 +1101,36 @@
         }
 
         // ===================== ВКЛАДКИ И ТЕМА =====================
+        // ===================== ОЧИСТКА ВСЕХ ДАННЫХ =====================
+        function clearAllData() {
+            if (!confirm('Удалить ВСЕ записи во всех трёх разделах (плитка, краска, кварцвинил)? Это действие нельзя отменить.')) return;
+            tileEntries = [];
+            paintEntries = [];
+            vinylEntries = [];
+            saveData();
+            renderTileTable();
+            renderPaintTable();
+            renderVinylTable();
+        }
+
+        // ===================== СИНХРОНИЗАЦИЯ ВЫСОТЫ ВКЛАДОК =====================
+        function syncPanelHeights() {
+            const wrapper = document.getElementById('tabsContent');
+            if (!wrapper) return;
+            const panels = wrapper.querySelectorAll('.section-panel');
+            let maxH = 0;
+            panels.forEach(p => {
+                if (p.classList.contains('active')) {
+                    maxH = Math.max(maxH, p.scrollHeight);
+                } else {
+                    p.classList.add('measuring');
+                    maxH = Math.max(maxH, p.scrollHeight);
+                    p.classList.remove('measuring');
+                }
+            });
+            wrapper.style.minHeight = maxH + 'px';
+        }
+
         function setupTabs() {
             const tabs = document.querySelectorAll('.tab-btn');
             const panels = {
@@ -892,6 +1146,11 @@
                     this.classList.add('active');
                     panels[tab].classList.add('active');
                 });
+            });
+            let resizeTimer;
+            window.addEventListener('resize', function() {
+                clearTimeout(resizeTimer);
+                resizeTimer = setTimeout(syncPanelHeights, 150);
             });
         }
 
@@ -953,6 +1212,7 @@
             document.getElementById('clearPaintBtn').addEventListener('click', clearPaintTable);
             document.getElementById('addVinylBtn').addEventListener('click', addVinylEntry);
             document.getElementById('clearVinylBtn').addEventListener('click', clearVinylTable);
+            document.getElementById('clearAllBtn').addEventListener('click', clearAllData);
 
             // Обновление превью цвета
             document.getElementById('groutColor').addEventListener('change', function() {
