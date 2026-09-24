@@ -26,6 +26,8 @@
             --btn-success-hover: #5c7a5c;
             --btn-warning: #b98d4e;
             --btn-warning-hover: #a17840;
+            --btn-violet: #7a6a9e;
+            --btn-violet-hover: #6a5a8a;
             --btn-danger: #b25b4c;
             --btn-danger-hover: #984c3f;
             --table-header: #f7f6f1;
@@ -54,6 +56,8 @@
             --btn-success-hover: #6e8f6e;
             --btn-warning: #c9a25e;
             --btn-warning-hover: #b98d4e;
+            --btn-violet: #9a8ab8;
+            --btn-violet-hover: #8a7aa8;
             --btn-danger: #c67c6c;
             --btn-danger-hover: #b25b4c;
             --table-header: #221f1b;
@@ -92,13 +96,9 @@
         }
         .header-text { display: flex; align-items: center; gap: 14px; }
         .icon-badge {
-            width: 42px;
-            height: 42px;
-            flex-shrink: 0;
+            width: 42px; height: 42px; flex-shrink: 0;
             border-radius: 11px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
+            display: flex; align-items: center; justify-content: center;
             background: var(--input-bg);
             border: 1px solid var(--input-border);
             color: var(--accent);
@@ -106,36 +106,29 @@
         }
         .icon-badge svg { width: 21px; height: 21px; }
         .header h1 {
-            font-size: 22px;
-            font-weight: 700;
+            font-size: 22px; font-weight: 700;
             letter-spacing: -0.2px;
             color: var(--text-primary);
             line-height: 1.2;
         }
         .header .subtitle {
-            font-size: 13px;
-            color: var(--text-secondary);
-            margin-top: 2px;
-            font-weight: 500;
+            font-size: 13px; color: var(--text-secondary);
+            margin-top: 2px; font-weight: 500;
         }
         .theme-toggle {
             background: var(--input-bg);
             border: 1px solid var(--input-border);
             border-radius: 999px;
             padding: 8px 16px;
-            font-size: 13.5px;
-            font-weight: 600;
+            font-size: 13.5px; font-weight: 600;
             cursor: pointer;
             color: var(--text-primary);
-            display: flex;
-            align-items: center;
-            gap: 8px;
+            display: flex; align-items: center; gap: 8px;
             transition: background var(--transition), border var(--transition);
         }
         .theme-toggle:hover { background: var(--table-border); }
         .tabs {
-            display: flex;
-            gap: 3px;
+            display: flex; gap: 3px;
             background: var(--input-bg);
             border: 1px solid var(--input-border);
             padding: 4px;
@@ -145,20 +138,18 @@
         }
         .tab-btn {
             flex: 1;
-            display: flex;
-            align-items: center;
-            justify-content: center;
+            display: flex; align-items: center; justify-content: center;
             gap: 7px;
             background: transparent;
             border: 1px solid transparent;
             padding: 9px 16px;
-            font-size: 14px;
-            font-weight: 600;
+            font-size: 14px; font-weight: 600;
             color: var(--text-secondary);
             cursor: pointer;
             border-radius: 8px;
             transition: var(--transition);
             white-space: nowrap;
+            font-family: inherit;
         }
         .tab-btn svg { width: 16px; height: 16px; flex-shrink: 0; }
         .tab-btn:hover { color: var(--text-primary); }
@@ -188,12 +179,9 @@
             margin-bottom: 22px;
         }
         .summary-panel-title {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
+            display: flex; align-items: center; justify-content: space-between;
             gap: 10px;
-            font-size: 12.5px;
-            font-weight: 700;
+            font-size: 12.5px; font-weight: 700;
             color: var(--text-secondary);
             text-transform: uppercase;
             letter-spacing: 0.3px;
@@ -212,8 +200,8 @@
         .summary-clear-btn:hover { background: rgba(178, 91, 76, 0.1); border-color: var(--btn-danger); }
         .summary-panel-grid {
             display: grid;
-            grid-template-columns: 1fr 1fr 1fr;
-            gap: 16px;
+            grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+            gap: 14px;
         }
         .summary-block {
             background: var(--paper);
@@ -222,15 +210,12 @@
             padding: 12px 14px;
         }
         .summary-block-label {
-            font-size: 12px;
-            font-weight: 700;
+            font-size: 12px; font-weight: 700;
             color: var(--accent);
             margin-bottom: 8px;
         }
         .summary-block-row {
-            display: flex;
-            align-items: baseline;
-            justify-content: space-between;
+            display: flex; align-items: baseline; justify-content: space-between;
             gap: 8px;
             font-size: 13.5px;
             color: var(--text-primary);
@@ -240,24 +225,18 @@
         .summary-block-row .summary-value { margin-left: auto; display: flex; align-items: baseline; gap: 4px; }
         .summary-block-row .unit { color: var(--text-secondary); font-size: 11.5px; }
         .summary-block-row strong { font-weight: 700; }
-        @media (max-width: 768px) {
-            .summary-panel-grid { grid-template-columns: 1fr; }
-        }
         @keyframes fadeIn {
             from { opacity: 0; transform: translateY(8px); }
             to { opacity: 1; transform: translateY(0); }
         }
+        .grid-1 { display: grid; grid-template-columns: 1fr; gap: 18px; }
         .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
         .grid-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 16px; }
         .grid-4 { display: grid; grid-template-columns: 1fr 1fr 1fr 1fr; gap: 14px; }
-        .form-group {
-            display: flex;
-            flex-direction: column;
-            gap: 6px;
-        }
+        .grid-6 { display: grid; grid-template-columns: repeat(6, 1fr); gap: 12px; }
+        .form-group { display: flex; flex-direction: column; gap: 6px; }
         .form-group label {
-            font-size: 12.5px;
-            font-weight: 600;
+            font-size: 12.5px; font-weight: 600;
             color: var(--text-secondary);
         }
         .form-group input,
@@ -267,11 +246,11 @@
             border: 1px solid var(--input-border);
             background: var(--input-bg);
             color: var(--text-primary);
-            font-size: 15px;
-            font-weight: 500;
+            font-size: 15px; font-weight: 500;
             transition: border var(--transition), box-shadow var(--transition), background var(--transition);
             outline: none;
             font-family: inherit;
+            min-width: 0;
         }
         .form-group input:focus,
         .form-group select:focus {
@@ -286,19 +265,12 @@
             margin: 0;
         }
         .form-group .hint {
-            font-size: 12px;
-            color: var(--text-secondary);
-            opacity: 0.8;
+            font-size: 12px; color: var(--text-secondary); opacity: 0.8;
         }
-        .color-select-wrapper {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
+        .color-select-wrapper { display: flex; align-items: center; gap: 10px; }
         .color-select-wrapper select { flex: 1; }
         .color-preview {
-            width: 28px;
-            height: 28px;
+            width: 28px; height: 28px;
             border-radius: 50%;
             border: 2px solid var(--paper);
             box-shadow: 0 0 0 1px var(--input-border);
@@ -309,58 +281,45 @@
             padding: 10px 20px;
             border: 1px solid var(--input-border);
             border-radius: var(--radius-md);
-            font-weight: 600;
-            font-size: 14px;
+            font-weight: 600; font-size: 14px;
             cursor: pointer;
             transition: background var(--transition), transform var(--transition), box-shadow var(--transition), border-color var(--transition);
-            display: inline-flex;
-            align-items: center;
-            gap: 7px;
+            display: inline-flex; align-items: center; gap: 7px;
             background: var(--input-bg);
             color: var(--text-primary);
+            font-family: inherit;
         }
         .btn svg { width: 15px; height: 15px; flex-shrink: 0; }
         .btn:hover { transform: translateY(-1px); }
         .btn:active { transform: scale(0.97); }
-        .btn-primary {
-            background: var(--btn-primary);
-            color: #fff;
-            border-color: transparent;
-        }
+        .btn-primary { background: var(--btn-primary); color: #fff; border-color: transparent; }
         .btn-primary:hover { background: var(--btn-primary-hover); box-shadow: 0 6px 14px -6px rgba(204,120,92,0.5); }
-        .btn-success {
-            background: var(--btn-success);
-            color: #fff;
-            border-color: transparent;
-        }
+        .btn-success { background: var(--btn-success); color: #fff; border-color: transparent; }
         .btn-success:hover { background: var(--btn-success-hover); box-shadow: 0 6px 14px -6px rgba(110,143,110,0.5); }
-        .btn-warning {
-            background: var(--btn-warning);
-            color: #fff;
-            border-color: transparent;
-        }
+        .btn-warning { background: var(--btn-warning); color: #fff; border-color: transparent; }
         .btn-warning:hover { background: var(--btn-warning-hover); box-shadow: 0 6px 14px -6px rgba(185,141,78,0.5); }
+        .btn-violet { background: var(--btn-violet); color: #fff; border-color: transparent; }
+        .btn-violet:hover { background: var(--btn-violet-hover); box-shadow: 0 6px 14px -6px rgba(122,106,158,0.5); }
         .btn-outline {
             background: transparent;
             border: 1.5px solid var(--input-border);
             color: var(--text-primary);
         }
-        .btn-outline:hover {
-            background: var(--input-bg);
-            border-color: var(--text-secondary);
+        .btn-outline:hover { background: var(--input-bg); border-color: var(--text-secondary); }
+        .btn-sm {
+            padding: 7px 14px;
+            font-size: 13px;
+            align-self: flex-start;
         }
         .action-row {
-            display: flex;
-            gap: 12px;
-            flex-wrap: wrap;
-            align-items: center;
+            display: flex; gap: 12px;
+            flex-wrap: wrap; align-items: center;
             margin: 18px 0 12px;
             padding: 6px 0;
         }
         .action-row .spacer { flex: 1; }
         .action-row .info-hint {
-            font-size: 12.5px;
-            font-weight: 500;
+            font-size: 12.5px; font-weight: 500;
             color: var(--text-secondary);
             background: var(--input-bg);
             border: 1px solid var(--input-border);
@@ -373,17 +332,12 @@
             border-radius: var(--radius-md);
             border: 1px solid var(--table-border);
         }
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            font-size: 14px;
-        }
+        table { width: 100%; border-collapse: collapse; font-size: 14px; }
         th {
             background: var(--table-header);
             padding: 12px 14px;
             text-align: left;
-            font-weight: 600;
-            font-size: 12px;
+            font-weight: 600; font-size: 12px;
             color: var(--text-secondary);
             border-bottom: 1px solid var(--table-border);
             white-space: nowrap;
@@ -392,6 +346,7 @@
             padding: 12px 14px;
             border-bottom: 1px solid var(--table-border);
             color: var(--text-primary);
+            white-space: nowrap;
         }
         tbody tr { transition: background var(--transition); }
         tbody tr:nth-child(even) { background: var(--table-stripe); }
@@ -410,14 +365,10 @@
             border-top: 1px solid var(--accent);
         }
         .remove-btn {
-            background: none;
-            border: none;
-            width: 26px;
-            height: 26px;
+            background: none; border: none;
+            width: 26px; height: 26px;
             border-radius: 7px;
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
+            display: inline-flex; align-items: center; justify-content: center;
             color: var(--btn-danger);
             font-size: 15px;
             cursor: pointer;
@@ -427,8 +378,7 @@
         .remove-btn:hover { background: rgba(178, 91, 76, 0.12); transform: scale(1.06); }
         .color-swatch {
             display: inline-block;
-            width: 16px;
-            height: 16px;
+            width: 16px; height: 16px;
             border-radius: 50%;
             margin-right: 7px;
             box-shadow: 0 0 0 1px var(--table-border);
@@ -440,21 +390,46 @@
             background: var(--input-bg);
             border-radius: var(--radius-md);
             border: 1px solid var(--input-border);
-            display: flex;
-            flex-wrap: wrap;
+            display: flex; flex-wrap: wrap;
             gap: 18px 28px;
         }
         .color-summary-item {
-            display: flex;
-            align-items: center;
-            gap: 8px;
+            display: flex; align-items: center; gap: 8px;
             font-size: 13.5px;
         }
         .color-summary-item .swatch {
-            width: 16px;
-            height: 16px;
+            width: 16px; height: 16px;
             border-radius: 50%;
             box-shadow: 0 0 0 1px var(--table-border);
+        }
+        .sub-label {
+            font-size: 12px;
+            font-weight: 700;
+            color: var(--text-secondary);
+            text-transform: uppercase;
+            letter-spacing: 0.3px;
+            margin: 4px 0 -4px;
+        }
+        .openings-list {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            margin-top: 8px;
+            margin-bottom: 8px;
+        }
+        .opening-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr auto;
+            gap: 10px;
+            align-items: end;
+        }
+        .opening-row .form-group { margin: 0; }
+        .opening-row .remove-btn { margin-bottom: 5px; }
+        .openings-empty {
+            font-size: 12.5px;
+            color: var(--text-secondary);
+            font-style: italic;
+            padding: 6px 2px;
         }
         .app-footer {
             margin-top: 24px;
@@ -463,8 +438,12 @@
             color: var(--text-secondary);
             opacity: 0.75;
         }
+        @media (max-width: 900px) {
+            .grid-6 { grid-template-columns: repeat(3, 1fr); }
+        }
         @media (max-width: 768px) {
-            .grid-2, .grid-3, .grid-4 { grid-template-columns: 1fr; }
+            .grid-1, .grid-2, .grid-3, .grid-4 { grid-template-columns: 1fr; }
+            .grid-6 { grid-template-columns: 1fr 1fr; }
             .glass { padding: 22px 16px; }
             .header h1 { font-size: 19px; }
             .tab-btn { padding: 8px 10px; font-size: 12.5px; }
@@ -478,7 +457,6 @@
 <div class="app">
     <div class="glass">
 
-        <!-- Шапка -->
         <div class="header">
             <div class="header-text">
                 <span class="icon-badge">
@@ -486,15 +464,14 @@
                 </span>
                 <div>
                     <h1>Калькулятор материалов</h1>
-                    <div class="subtitle">Плитка · Краска · Кварцвинил</div>
+                    <div class="subtitle">Плитка · Краска · Кварцвинил · Обои</div>
                 </div>
             </div>
-            <button class="theme-toggle" id="themeToggle">
+            <button class="theme-toggle" id="themeToggle" aria-label="Переключить тему">
                 <span id="themeIcon">☀️</span> <span id="themeLabel">Светлая</span>
             </button>
         </div>
 
-        <!-- Вкладки -->
         <div class="tabs">
             <button class="tab-btn active" data-tab="tile">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>
@@ -508,9 +485,12 @@
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="4" rx="1"/><rect x="3" y="10" width="18" height="4" rx="1"/><rect x="3" y="16" width="18" height="4" rx="1"/></svg>
                 Кварцвинил
             </button>
+            <button class="tab-btn" data-tab="wallpaper">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 12h18"/><path d="M9 3v18"/><path d="M15 3v18"/></svg>
+                Обои
+            </button>
         </div>
 
-        <!-- ========= СВОДКА (видна всегда, без переключения вкладок) ========= -->
         <div class="summary-panel" id="summaryPanel">
             <div class="summary-panel-title">
                 <span class="summary-panel-title-text">
@@ -540,10 +520,15 @@
                     <div class="summary-block-row"><span>С запасом</span><span class="summary-value"><strong id="sumVinylMaterial">0</strong><span class="unit">м²</span></span></div>
                     <div class="summary-block-row"><span>Клей</span><span class="summary-value"><strong id="sumVinylGlue">0</strong><span class="unit">кг</span></span></div>
                 </div>
+                <div class="summary-block">
+                    <div class="summary-block-label">Обои</div>
+                    <div class="summary-block-row"><span>Площадь стен</span><span class="summary-value"><strong id="sumWpArea">0</strong><span class="unit">м²</span></span></div>
+                    <div class="summary-block-row"><span>Проёмы</span><span class="summary-value"><strong id="sumWpOpenings">0</strong><span class="unit">м²</span></span></div>
+                    <div class="summary-block-row"><span>Рулонов</span><span class="summary-value"><strong id="sumWpRolls">0</strong><span class="unit">шт</span></span></div>
+                </div>
             </div>
         </div>
 
-        <!-- ========= КОНТЕЙНЕР ВКЛАДОК (для синхронизации высоты) ========= -->
         <div class="tabs-content" id="tabsContent">
 
         <!-- ========= ПЛИТКА ========= -->
@@ -763,8 +748,102 @@
             </div>
         </div>
 
+        <!-- ========= ОБОИ ========= -->
+        <div id="tab-wallpaper" class="section-panel">
+            <div class="sub-label">Размеры комнаты</div>
+            <div class="grid-3" style="margin-top:8px;">
+                <div class="form-group">
+                    <label>Длина комнаты, м</label>
+                    <input type="number" id="wpLength" value="5" step="0.1">
+                </div>
+                <div class="form-group">
+                    <label>Ширина комнаты, м</label>
+                    <input type="number" id="wpWidth" value="4" step="0.1">
+                </div>
+                <div class="form-group">
+                    <label>Высота стен, м</label>
+                    <input type="number" id="wpHeight" value="2.7" step="0.05">
+                </div>
+            </div>
+
+            <div class="sub-label" style="margin-top:18px;">Окна (каждое — отдельной строкой)</div>
+            <div id="wpWindowsList" class="openings-list"></div>
+            <button type="button" class="btn btn-outline btn-sm" id="wpAddWindow">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+                Добавить окно
+            </button>
+
+            <div class="sub-label" style="margin-top:18px;">Двери (каждая — отдельной строкой)</div>
+            <div id="wpDoorsList" class="openings-list"></div>
+            <button type="button" class="btn btn-outline btn-sm" id="wpAddDoor">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+                Добавить дверь
+            </button>
+
+            <div class="sub-label" style="margin-top:18px;">Параметры рулона</div>
+            <div class="grid-3" style="margin-top:8px;">
+                <div class="form-group">
+                    <label>Ширина рулона, м</label>
+                    <input type="number" id="wpRollW" value="1.06" step="0.01">
+                </div>
+                <div class="form-group">
+                    <label>Длина рулона, м</label>
+                    <input type="number" id="wpRollL" value="10.05" step="0.05">
+                </div>
+                <div class="form-group">
+                    <label>Раппорт (шаг рисунка), м</label>
+                    <input type="number" id="wpRapport" value="0" step="0.01" min="0">
+                    <span class="hint">0 — без подгонки. Примеры: 0.32, 0.53, 0.64</span>
+                </div>
+            </div>
+
+            <div class="grid-1" style="margin-top:12px;">
+                <div class="form-group">
+                    <label>Комментарий (объект)</label>
+                    <input type="text" id="wpComment" placeholder="Напр. Спальня" value="">
+                </div>
+            </div>
+
+            <div class="action-row">
+                <button class="btn btn-violet" id="addWpBtn">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+                    Добавить комнату
+                </button>
+                <button class="btn btn-outline" id="clearWpBtn">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"/><path d="M10 11v6"/><path d="M14 11v6"/><path d="M9 6V4a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2"/></svg>
+                    Очистить
+                </button>
+                <span class="spacer"></span>
+                <span class="info-hint">Запас 5 см на полосу · Полосы у проёмов всё равно режутся, экономия приблизительная</span>
+            </div>
+
+            <div class="table-wrap">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Объект</th>
+                            <th>Комната (Д×Ш×В)</th>
+                            <th>Окна</th>
+                            <th>Двери</th>
+                            <th>Рулон</th>
+                            <th>Полос</th>
+                            <th>Рулонов</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody id="wpTableBody"></tbody>
+                    <tfoot>
+                        <tr class="total-row">
+                            <td colspan="6"><strong>ИТОГО</strong></td>
+                            <td id="totalWpRolls">0</td>
+                            <td></td>
+                        </tr>
+                    </tfoot>
+                </table>
+            </div>
         </div>
-        <!-- конец tabs-content -->
+
+        </div>
 
         <div class="app-footer">Данные сохраняются локально в этом браузере</div>
 
@@ -777,10 +856,11 @@
         const GROUT_DENSITY = 1.78;
         const PAINT_RATE = 0.1;
         const PRIMER_RATE = 0.1;
-        const VINYL_GLUE_RATE = 0.4; // кг/м²
-        const VINYL_WASTE_STRAIGHT = 0.05; // 5%
-        const VINYL_WASTE_DIAGONAL = 0.07; // 7%
-        const GLUE_WASTE = 0.08; // 8% всегда для клея
+        const VINYL_GLUE_RATE = 0.4;
+        const VINYL_WASTE_STRAIGHT = 0.05;
+        const VINYL_WASTE_DIAGONAL = 0.07;
+        const GLUE_WASTE = 0.08;
+        const WP_TRIM = 0.05;
 
         // ----- Цвета -----
         const colorHexMap = {
@@ -800,6 +880,12 @@
             return colorHexMap[name] || '#cccccc';
         }
 
+        function esc(s) {
+            return String(s == null ? '' : s).replace(/[&<>"']/g, function(c) {
+                return ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'})[c];
+            });
+        }
+
         function updateColorPreview(selectId, previewId) {
             const select = document.getElementById(selectId);
             const preview = document.getElementById(previewId);
@@ -812,21 +898,54 @@
         let tileEntries = [];
         let paintEntries = [];
         let vinylEntries = [];
+        let wallpaperEntries = [];
 
-        // ----- Сохранение / загрузка -----
         function saveData() {
-            localStorage.setItem('tileEntries', JSON.stringify(tileEntries));
-            localStorage.setItem('paintEntries', JSON.stringify(paintEntries));
-            localStorage.setItem('vinylEntries', JSON.stringify(vinylEntries));
+            try {
+                localStorage.setItem('tileEntries', JSON.stringify(tileEntries));
+                localStorage.setItem('paintEntries', JSON.stringify(paintEntries));
+                localStorage.setItem('vinylEntries', JSON.stringify(vinylEntries));
+                localStorage.setItem('wallpaperEntries', JSON.stringify(wallpaperEntries));
+            } catch (e) {
+                console.warn('Не удалось сохранить данные (localStorage недоступен):', e);
+            }
+        }
+
+        function readArray(key) {
+            try {
+                const raw = localStorage.getItem(key);
+                if (!raw) return [];
+                const parsed = JSON.parse(raw);
+                return Array.isArray(parsed) ? parsed : [];
+            } catch (e) {
+                return [];
+            }
+        }
+
+        // Миграция старых записей: winCount/winW/winH → windows: [{w,h}, ...]
+        function migrateWallpaperEntry(entry) {
+            const out = Object.assign({}, entry);
+            if (Array.isArray(out.windows) && Array.isArray(out.doors)) return out;
+            const windows = [];
+            const doors = [];
+            if (out.winCount > 0 && out.winW > 0 && out.winH > 0) {
+                for (let i = 0; i < out.winCount; i++) windows.push({ w: out.winW, h: out.winH });
+            }
+            if (out.doorCount > 0 && out.doorW > 0 && out.doorH > 0) {
+                for (let i = 0; i < out.doorCount; i++) doors.push({ w: out.doorW, h: out.doorH });
+            }
+            out.windows = windows;
+            out.doors = doors;
+            delete out.winCount; delete out.winW; delete out.winH;
+            delete out.doorCount; delete out.doorW; delete out.doorH;
+            return out;
         }
 
         function loadData() {
-            const tileSaved = localStorage.getItem('tileEntries');
-            const paintSaved = localStorage.getItem('paintEntries');
-            const vinylSaved = localStorage.getItem('vinylEntries');
-            if (tileSaved) try { tileEntries = JSON.parse(tileSaved); } catch(e) { tileEntries = []; }
-            if (paintSaved) try { paintEntries = JSON.parse(paintSaved); } catch(e) { paintEntries = []; }
-            if (vinylSaved) try { vinylEntries = JSON.parse(vinylSaved); } catch(e) { vinylEntries = []; }
+            tileEntries = readArray('tileEntries');
+            paintEntries = readArray('paintEntries');
+            vinylEntries = readArray('vinylEntries');
+            wallpaperEntries = readArray('wallpaperEntries').map(migrateWallpaperEntry);
         }
 
         // ===================== ПЛИТКА =====================
@@ -863,15 +982,15 @@
 
                 const row = document.createElement('tr');
                 row.innerHTML = `
-                    <td>${comment || ''}</td>
-                    <td>${length}×${width}</td>
-                    <td>${thick}</td>
-                    <td>${joint}</td>
-                    <td>${area.toFixed(1)}</td>
+                    <td>${esc(comment)}</td>
+                    <td>${esc(length)}×${esc(width)}</td>
+                    <td>${esc(thick)}</td>
+                    <td>${esc(joint)}</td>
+                    <td>${Number(area).toFixed(1)}</td>
                     <td>${bags}</td>
                     <td>${grout.toFixed(2)}</td>
-                    <td><span class="color-swatch" style="background:${getColorHex(color)};"></span>${color}</td>
-                    <td><button class="remove-btn" data-index="${index}" data-type="tile">✕</button></td>
+                    <td><span class="color-swatch" style="background:${getColorHex(color)};"></span>${esc(color)}</td>
+                    <td><button class="remove-btn" data-index="${index}" data-type="tile" aria-label="Удалить запись">✕</button></td>
                 `;
                 tbody.appendChild(row);
             });
@@ -882,7 +1001,6 @@
             document.getElementById('sumTileArea').textContent = totalArea.toFixed(1);
             document.getElementById('sumTileBags').textContent = totalBags;
             document.getElementById('sumTileGrout').textContent = totalGrout.toFixed(2);
-            syncPanelHeights();
 
             const summary = document.getElementById('tileColorSummary');
             const keys = Object.keys(colorMap);
@@ -891,21 +1009,24 @@
                 summary.innerHTML = keys.map(c => `
                     <div class="color-summary-item">
                         <span class="swatch" style="background:${getColorHex(c)};"></span>
-                        <span>${c}: <strong>${colorMap[c].toFixed(2)}</strong> кг</span>
+                        <span>${esc(c)}: <strong>${colorMap[c].toFixed(2)}</strong> кг</span>
                     </div>
                 `).join('');
             } else {
                 summary.style.display = 'none';
             }
 
-            document.querySelectorAll('#tileTableBody .remove-btn').forEach(btn => {
+            tbody.querySelectorAll('.remove-btn').forEach(btn => {
                 btn.addEventListener('click', function() {
-                    const idx = parseInt(this.dataset.index);
+                    const idx = parseInt(this.dataset.index, 10);
                     tileEntries.splice(idx, 1);
                     saveData();
                     renderTileTable();
+                    scheduleSyncHeights();
                 });
             });
+
+            scheduleSyncHeights();
         }
 
         function addTileEntry() {
@@ -918,7 +1039,7 @@
             const comment = document.getElementById('tileComment').value.trim();
 
             if ([length, width, thick, area].some(v => isNaN(v) || v <= 0)) {
-                alert('Все числовые значения должны быть положительными (шов может быть 0).');
+                alert('Все числовые значения должны быть положительными.');
                 return;
             }
             if (isNaN(joint) || joint < 0) { alert('Шов не может быть отрицательным.'); return; }
@@ -930,6 +1051,7 @@
         }
 
         function clearTileTable() {
+            if (tileEntries.length === 0) return;
             if (!confirm('Удалить все записи по плитке?')) return;
             tileEntries = [];
             saveData();
@@ -942,7 +1064,7 @@
             tbody.innerHTML = '';
             let totalPaint = 0, totalPrimer = 0;
             const colorMap = {};
-            const primerLayers = parseInt(document.getElementById('primerLayers').value);
+            const primerLayers = parseInt(document.getElementById('primerLayers').value, 10);
 
             if (paintEntries.length === 0) {
                 tbody.innerHTML = '<tr class="empty-row"><td colspan="7">Пока нет записей — добавьте первую выше ↑</td></tr>';
@@ -961,13 +1083,13 @@
 
                 const row = document.createElement('tr');
                 row.innerHTML = `
-                    <td>${comment || ''}</td>
-                    <td>${area.toFixed(1)}</td>
-                    <td>${layers}</td>
-                    <td><span class="color-swatch" style="background:${getColorHex(color)};"></span>${color}</td>
+                    <td>${esc(comment)}</td>
+                    <td>${Number(area).toFixed(1)}</td>
+                    <td>${esc(layers)}</td>
+                    <td><span class="color-swatch" style="background:${getColorHex(color)};"></span>${esc(color)}</td>
                     <td>${paintL.toFixed(2)}</td>
                     <td>${primerL.toFixed(2)}</td>
-                    <td><button class="remove-btn" data-index="${index}" data-type="paint">✕</button></td>
+                    <td><button class="remove-btn" data-index="${index}" data-type="paint" aria-label="Удалить запись">✕</button></td>
                 `;
                 tbody.appendChild(row);
             });
@@ -976,7 +1098,6 @@
             document.getElementById('totalPrimerLiters').textContent = totalPrimer.toFixed(2);
             document.getElementById('sumPaintLiters').textContent = totalPaint.toFixed(2);
             document.getElementById('sumPrimerLiters').textContent = totalPrimer.toFixed(2);
-            syncPanelHeights();
 
             const summary = document.getElementById('paintColorSummary');
             const keys = Object.keys(colorMap);
@@ -985,26 +1106,29 @@
                 summary.innerHTML = keys.map(c => `
                     <div class="color-summary-item">
                         <span class="swatch" style="background:${getColorHex(c)};"></span>
-                        <span>${c}: <strong>${colorMap[c].toFixed(2)}</strong> л</span>
+                        <span>${esc(c)}: <strong>${colorMap[c].toFixed(2)}</strong> л</span>
                     </div>
                 `).join('');
             } else {
                 summary.style.display = 'none';
             }
 
-            document.querySelectorAll('#paintTableBody .remove-btn').forEach(btn => {
+            tbody.querySelectorAll('.remove-btn').forEach(btn => {
                 btn.addEventListener('click', function() {
-                    const idx = parseInt(this.dataset.index);
+                    const idx = parseInt(this.dataset.index, 10);
                     paintEntries.splice(idx, 1);
                     saveData();
                     renderPaintTable();
+                    scheduleSyncHeights();
                 });
             });
+
+            scheduleSyncHeights();
         }
 
         function addPaintEntry() {
             const area = parseFloat(document.getElementById('paintArea').value);
-            const layers = parseInt(document.getElementById('paintLayers').value);
+            const layers = parseInt(document.getElementById('paintLayers').value, 10);
             const color = document.getElementById('paintColor').value;
             const comment = document.getElementById('paintComment').value.trim();
 
@@ -1020,6 +1144,7 @@
         }
 
         function clearPaintTable() {
+            if (paintEntries.length === 0) return;
             if (!confirm('Удалить все записи по краске?')) return;
             paintEntries = [];
             saveData();
@@ -1049,12 +1174,12 @@
 
                 const row = document.createElement('tr');
                 row.innerHTML = `
-                    <td>${comment || ''}</td>
-                    <td>${area.toFixed(1)}</td>
+                    <td>${esc(comment)}</td>
+                    <td>${Number(area).toFixed(1)}</td>
                     <td>${patternLabel}</td>
                     <td>${materialArea.toFixed(2)}</td>
                     <td>${glue.toFixed(2)}</td>
-                    <td><button class="remove-btn" data-index="${index}" data-type="vinyl">✕</button></td>
+                    <td><button class="remove-btn" data-index="${index}" data-type="vinyl" aria-label="Удалить запись">✕</button></td>
                 `;
                 tbody.appendChild(row);
             });
@@ -1065,16 +1190,18 @@
             document.getElementById('sumVinylArea').textContent = totalArea.toFixed(1);
             document.getElementById('sumVinylMaterial').textContent = totalMaterial.toFixed(2);
             document.getElementById('sumVinylGlue').textContent = totalGlue.toFixed(2);
-            syncPanelHeights();
 
-            document.querySelectorAll('#vinylTableBody .remove-btn').forEach(btn => {
+            tbody.querySelectorAll('.remove-btn').forEach(btn => {
                 btn.addEventListener('click', function() {
-                    const idx = parseInt(this.dataset.index);
+                    const idx = parseInt(this.dataset.index, 10);
                     vinylEntries.splice(idx, 1);
                     saveData();
                     renderVinylTable();
+                    scheduleSyncHeights();
                 });
             });
+
+            scheduleSyncHeights();
         }
 
         function addVinylEntry() {
@@ -1094,26 +1221,260 @@
         }
 
         function clearVinylTable() {
+            if (vinylEntries.length === 0) return;
             if (!confirm('Удалить все записи по кварцвинилу?')) return;
             vinylEntries = [];
             saveData();
             renderVinylTable();
         }
 
-        // ===================== ВКЛАДКИ И ТЕМА =====================
+        // ===================== ОБОИ =====================
+        function createOpeningRow(type, values) {
+            const defaults = type === 'window'
+                ? { w: 1.4, h: 1.5 }
+                : { w: 0.7, h: 2.1 };
+            const w = (values && values.w != null) ? values.w : defaults.w;
+            const h = (values && values.h != null) ? values.h : defaults.h;
+
+            const row = document.createElement('div');
+            row.className = 'opening-row';
+            row.dataset.type = type;
+            row.innerHTML = `
+                <div class="form-group">
+                    <label>Ширина, м</label>
+                    <input type="number" class="opening-w" value="${w}" step="0.05" min="0">
+                </div>
+                <div class="form-group">
+                    <label>Высота, м</label>
+                    <input type="number" class="opening-h" value="${h}" step="0.05" min="0">
+                </div>
+                <button type="button" class="remove-btn" aria-label="Удалить проём">✕</button>
+            `;
+            row.querySelector('.remove-btn').addEventListener('click', function() {
+                row.remove();
+                updateOpeningsEmptyState('wpWindowsList');
+                updateOpeningsEmptyState('wpDoorsList');
+            });
+            return row;
+        }
+
+        function updateOpeningsEmptyState(listId) {
+            const list = document.getElementById(listId);
+            if (!list) return;
+            const has = list.querySelector('.opening-row');
+            const placeholder = list.querySelector('.openings-empty');
+            if (!has && !placeholder) {
+                const div = document.createElement('div');
+                div.className = 'openings-empty';
+                div.textContent = 'Нет — нажмите кнопку ниже, чтобы добавить';
+                list.appendChild(div);
+            } else if (has && placeholder) {
+                placeholder.remove();
+            }
+        }
+
+        function collectOpenings(listId) {
+            const rows = document.querySelectorAll('#' + listId + ' .opening-row');
+            const result = [];
+            rows.forEach(row => {
+                const w = parseFloat(row.querySelector('.opening-w').value);
+                const h = parseFloat(row.querySelector('.opening-h').value);
+                if (!isNaN(w) && !isNaN(h) && w > 0 && h > 0) {
+                    result.push({ w: w, h: h });
+                }
+            });
+            return result;
+        }
+
+        function loadOpeningsIntoForm(entry) {
+            const winList = document.getElementById('wpWindowsList');
+            const doorList = document.getElementById('wpDoorsList');
+            winList.innerHTML = '';
+            doorList.innerHTML = '';
+
+            const windows = (entry && Array.isArray(entry.windows)) ? entry.windows : [];
+            const doors = (entry && Array.isArray(entry.doors)) ? entry.doors : [];
+
+            windows.forEach(o => winList.appendChild(createOpeningRow('window', o)));
+            doors.forEach(o => doorList.appendChild(createOpeningRow('door', o)));
+
+            updateOpeningsEmptyState('wpWindowsList');
+            updateOpeningsEmptyState('wpDoorsList');
+        }
+
+        function calcWallpaper(e) {
+            const perimeter = 2 * (e.length + e.width);
+            const wallArea = perimeter * e.height;
+
+            const windows = Array.isArray(e.windows) ? e.windows : [];
+            const doors = Array.isArray(e.doors) ? e.doors : [];
+
+            let openingsW = 0;
+            let openingsArea = 0;
+            windows.forEach(o => { openingsW += o.w; openingsArea += o.w * o.h; });
+            doors.forEach(o => { openingsW += o.w; openingsArea += o.w * o.h; });
+
+            const netArea = Math.max(0, wallArea - openingsArea);
+
+            const stripsTotal = Math.ceil(perimeter / e.rollW);
+            const stripsSaved = Math.min(Math.max(stripsTotal - 1, 0), Math.floor(openingsW / e.rollW));
+            const stripsNeeded = Math.max(1, stripsTotal - stripsSaved);
+
+            let stripLength = e.height + WP_TRIM;
+            if (e.rapport > 0) {
+                stripLength = Math.ceil(stripLength / e.rapport) * e.rapport;
+            }
+
+            const stripsPerRoll = Math.floor(e.rollL / stripLength);
+            const rolls = stripsPerRoll > 0 ? Math.ceil(stripsNeeded / stripsPerRoll) : 0;
+
+            return {
+                perimeter, wallArea, netArea, openingsArea,
+                stripsTotal, stripsSaved, stripsNeeded,
+                stripLength, stripsPerRoll, rolls,
+                error: stripsPerRoll <= 0
+            };
+        }
+
+        function fmtOpenings(arr) {
+            if (!arr || arr.length === 0) return '—';
+            const area = arr.reduce((s, o) => s + o.w * o.h, 0);
+            return arr.length + ' шт · ' + area.toFixed(1) + ' м²';
+        }
+
+        function renderWallpaperTable() {
+            const tbody = document.getElementById('wpTableBody');
+            tbody.innerHTML = '';
+            let totalRolls = 0, totalWallArea = 0, totalOpeningsArea = 0;
+            let anyError = false;
+
+            if (wallpaperEntries.length === 0) {
+                tbody.innerHTML = '<tr class="empty-row"><td colspan="8">Пока нет записей — добавьте первую выше ↑</td></tr>';
+            }
+
+            wallpaperEntries.forEach((entry, index) => {
+                const r = calcWallpaper(entry);
+                if (r.error) anyError = true;
+                totalRolls += r.rolls;
+                totalWallArea += r.wallArea;
+                totalOpeningsArea += r.openingsArea;
+
+                const rollLabel = entry.rollW + '×' + entry.rollL + (entry.rapport > 0 ? ' R' + entry.rapport : '');
+
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td>${esc(entry.comment)}</td>
+                    <td>${esc(entry.length)}×${esc(entry.width)}×${esc(entry.height)}</td>
+                    <td>${fmtOpenings(entry.windows)}</td>
+                    <td>${fmtOpenings(entry.doors)}</td>
+                    <td>${esc(rollLabel)}</td>
+                    <td>${r.stripsNeeded}${r.stripsSaved > 0 ? ` <span style="color:var(--text-secondary);font-size:11.5px;">(−${r.stripsSaved})</span>` : ''}</td>
+                    <td><strong>${r.error ? '⚠' : r.rolls}</strong></td>
+                    <td><button class="remove-btn" data-index="${index}" data-type="wallpaper" aria-label="Удалить запись">✕</button></td>
+                `;
+                tbody.appendChild(row);
+            });
+
+            document.getElementById('totalWpRolls').textContent = totalRolls;
+            document.getElementById('sumWpArea').textContent = totalWallArea.toFixed(1);
+            document.getElementById('sumWpOpenings').textContent = totalOpeningsArea.toFixed(1);
+            document.getElementById('sumWpRolls').textContent = totalRolls;
+
+            if (anyError) {
+                console.warn('Некоторые рулоны короче одной полосы — проверьте высоту стен и длину рулона.');
+            }
+
+            tbody.querySelectorAll('.remove-btn').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const idx = parseInt(this.dataset.index, 10);
+                    wallpaperEntries.splice(idx, 1);
+                    saveData();
+                    renderWallpaperTable();
+                    scheduleSyncHeights();
+                });
+            });
+
+            scheduleSyncHeights();
+        }
+
+        function addWallpaperEntry() {
+            const length = parseFloat(document.getElementById('wpLength').value);
+            const width = parseFloat(document.getElementById('wpWidth').value);
+            const height = parseFloat(document.getElementById('wpHeight').value);
+            const rollW = parseFloat(document.getElementById('wpRollW').value);
+            const rollL = parseFloat(document.getElementById('wpRollL').value);
+            const rapport = parseFloat(document.getElementById('wpRapport').value) || 0;
+            const comment = document.getElementById('wpComment').value.trim();
+
+            if ([length, width, height].some(v => isNaN(v) || v <= 0)) {
+                alert('Размеры комнаты (длина, ширина, высота) должны быть положительными.');
+                return;
+            }
+            if (isNaN(rollW) || rollW <= 0 || isNaN(rollL) || rollL <= 0) {
+                alert('Ширина и длина рулона должны быть положительными.');
+                return;
+            }
+            if (rapport < 0) {
+                alert('Раппорт не может быть отрицательным.');
+                return;
+            }
+
+            const windows = collectOpenings('wpWindowsList');
+            const doors = collectOpenings('wpDoorsList');
+
+            const entry = {
+                length, width, height,
+                windows, doors,
+                rollW, rollL, rapport,
+                comment
+            };
+
+            const probe = calcWallpaper(entry);
+            if (probe.error) {
+                if (!confirm('Длина рулона меньше длины одной полосы (с учётом раппорта). Запись будет добавлена, но расчёт рулонов невозможен. Продолжить?')) {
+                    return;
+                }
+            }
+
+            wallpaperEntries.push(entry);
+            saveData();
+            renderWallpaperTable();
+            document.getElementById('wpComment').value = '';
+        }
+
+        function clearWallpaperTable() {
+            if (wallpaperEntries.length === 0) return;
+            if (!confirm('Удалить все записи по обоям?')) return;
+            wallpaperEntries = [];
+            saveData();
+            renderWallpaperTable();
+        }
+
         // ===================== ОЧИСТКА ВСЕХ ДАННЫХ =====================
         function clearAllData() {
-            if (!confirm('Удалить ВСЕ записи во всех трёх разделах (плитка, краска, кварцвинил)? Это действие нельзя отменить.')) return;
+            if (!confirm('Удалить ВСЕ записи во всех четырёх разделах? Это действие нельзя отменить.')) return;
             tileEntries = [];
             paintEntries = [];
             vinylEntries = [];
+            wallpaperEntries = [];
             saveData();
             renderTileTable();
             renderPaintTable();
             renderVinylTable();
+            renderWallpaperTable();
         }
 
         // ===================== СИНХРОНИЗАЦИЯ ВЫСОТЫ ВКЛАДОК =====================
+        let syncScheduled = false;
+        function scheduleSyncHeights() {
+            if (syncScheduled) return;
+            syncScheduled = true;
+            requestAnimationFrame(() => {
+                syncScheduled = false;
+                syncPanelHeights();
+            });
+        }
+
         function syncPanelHeights() {
             const wrapper = document.getElementById('tabsContent');
             if (!wrapper) return;
@@ -1131,12 +1492,14 @@
             wrapper.style.minHeight = maxH + 'px';
         }
 
+        // ===================== ВКЛАДКИ И ТЕМА =====================
         function setupTabs() {
             const tabs = document.querySelectorAll('.tab-btn');
             const panels = {
                 tile: document.getElementById('tab-tile'),
                 paint: document.getElementById('tab-paint'),
-                vinyl: document.getElementById('tab-vinyl')
+                vinyl: document.getElementById('tab-vinyl'),
+                wallpaper: document.getElementById('tab-wallpaper')
             };
             tabs.forEach(btn => {
                 btn.addEventListener('click', function() {
@@ -1145,6 +1508,7 @@
                     Object.values(panels).forEach(p => p.classList.remove('active'));
                     this.classList.add('active');
                     panels[tab].classList.add('active');
+                    scheduleSyncHeights();
                 });
             });
             let resizeTimer;
@@ -1159,7 +1523,8 @@
             const icon = document.getElementById('themeIcon');
             const label = document.getElementById('themeLabel');
             const body = document.body;
-            const saved = localStorage.getItem('theme') || 'light';
+            let saved = 'light';
+            try { saved = localStorage.getItem('theme') || 'light'; } catch (e) {}
             if (saved === 'dark') {
                 body.classList.add('dark');
                 icon.textContent = '🌙';
@@ -1170,12 +1535,11 @@
                 if (isDark) {
                     icon.textContent = '🌙';
                     label.textContent = 'Тёмная';
-                    localStorage.setItem('theme', 'dark');
                 } else {
                     icon.textContent = '☀️';
                     label.textContent = 'Светлая';
-                    localStorage.setItem('theme', 'light');
                 }
+                try { localStorage.setItem('theme', isDark ? 'dark' : 'light'); } catch (e) {}
             });
         }
 
@@ -1183,24 +1547,55 @@
         window.addEventListener('DOMContentLoaded', function() {
             loadData();
 
-            // Демо-записи, если пусто
-            if (tileEntries.length === 0) {
-                tileEntries.push({
-                    length: 600, width: 1200, thick: 9, joint: 1.5, area: 30, color: 'серый', comment: 'Ванная'
-                });
+            let seeded = false;
+            try { seeded = localStorage.getItem('appSeeded') === '1'; } catch (e) {}
+
+            if (!seeded) {
+                if (tileEntries.length === 0) {
+                    tileEntries.push({ length: 600, width: 1200, thick: 9, joint: 1.5, area: 30, color: 'серый', comment: 'Ванная' });
+                }
+                if (paintEntries.length === 0) {
+                    paintEntries.push({ area: 10, layers: 2, color: 'зеленый', comment: 'Кухня' });
+                    paintEntries.push({ area: 5, layers: 1, color: 'красный', comment: 'Прихожая' });
+                }
+                if (vinylEntries.length === 0) {
+                    vinylEntries.push({ area: 20, pattern: 'straight', comment: 'Гостиная' });
+                    vinylEntries.push({ area: 12, pattern: 'diagonal', comment: 'Коридор' });
+                }
+                if (wallpaperEntries.length === 0) {
+                    wallpaperEntries.push({
+                        length: 5, width: 4, height: 2.7,
+                        windows: [{ w: 1.4, h: 1.5 }],
+                        doors: [{ w: 0.7, h: 2.1 }],
+                        rollW: 1.06, rollL: 10.05, rapport: 0,
+                        comment: 'Спальня'
+                    });
+                }
+                try { localStorage.setItem('appSeeded', '1'); } catch (e) {}
+                saveData();
             }
-            if (paintEntries.length === 0) {
-                paintEntries.push({ area: 10, layers: 2, color: 'зеленый', comment: 'Кухня' });
-                paintEntries.push({ area: 5, layers: 1, color: 'красный', comment: 'Прихожая' });
-            }
-            if (vinylEntries.length === 0) {
-                vinylEntries.push({ area: 20, pattern: 'straight', comment: 'Гостиная' });
-                vinylEntries.push({ area: 12, pattern: 'diagonal', comment: 'Коридор' });
+
+            // Форма обоёв: начальное состояние
+            const firstEntry = wallpaperEntries[0];
+            if (firstEntry) {
+                document.getElementById('wpLength').value = firstEntry.length;
+                document.getElementById('wpWidth').value = firstEntry.width;
+                document.getElementById('wpHeight').value = firstEntry.height;
+                document.getElementById('wpRollW').value = firstEntry.rollW;
+                document.getElementById('wpRollL').value = firstEntry.rollL;
+                document.getElementById('wpRapport').value = firstEntry.rapport;
+                loadOpeningsIntoForm(firstEntry);
+            } else {
+                document.getElementById('wpWindowsList').appendChild(createOpeningRow('window'));
+                document.getElementById('wpDoorsList').appendChild(createOpeningRow('door'));
+                updateOpeningsEmptyState('wpWindowsList');
+                updateOpeningsEmptyState('wpDoorsList');
             }
 
             renderTileTable();
             renderPaintTable();
             renderVinylTable();
+            renderWallpaperTable();
 
             setupTabs();
             setupTheme();
@@ -1212,9 +1607,21 @@
             document.getElementById('clearPaintBtn').addEventListener('click', clearPaintTable);
             document.getElementById('addVinylBtn').addEventListener('click', addVinylEntry);
             document.getElementById('clearVinylBtn').addEventListener('click', clearVinylTable);
+            document.getElementById('addWpBtn').addEventListener('click', addWallpaperEntry);
+            document.getElementById('clearWpBtn').addEventListener('click', clearWallpaperTable);
             document.getElementById('clearAllBtn').addEventListener('click', clearAllData);
 
-            // Обновление превью цвета
+            // Добавление проёмов
+            document.getElementById('wpAddWindow').addEventListener('click', function() {
+                document.getElementById('wpWindowsList').appendChild(createOpeningRow('window'));
+                updateOpeningsEmptyState('wpWindowsList');
+            });
+            document.getElementById('wpAddDoor').addEventListener('click', function() {
+                document.getElementById('wpDoorsList').appendChild(createOpeningRow('door'));
+                updateOpeningsEmptyState('wpDoorsList');
+            });
+
+            // Превью цвета
             document.getElementById('groutColor').addEventListener('change', function() {
                 updateColorPreview('groutColor', 'groutColorPreview');
             });
@@ -1225,6 +1632,9 @@
 
             updateColorPreview('groutColor', 'groutColorPreview');
             updateColorPreview('paintColor', 'paintColorPreview');
+
+            scheduleSyncHeights();
+            window.addEventListener('load', scheduleSyncHeights);
         });
     })();
 </script>
