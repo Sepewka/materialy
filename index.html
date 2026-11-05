@@ -541,6 +541,7 @@
                     <div class="summary-block-row"><span>Площадь стен</span><span class="summary-value"><strong id="sumWpArea">0</strong><span class="unit">м²</span></span></div>
                     <div class="summary-block-row"><span>Проёмы</span><span class="summary-value"><strong id="sumWpOpenings">0</strong><span class="unit">м²</span></span></div>
                     <div class="summary-block-row"><span>Рулонов</span><span class="summary-value"><strong id="sumWpRolls">0</strong><span class="unit">шт</span></span></div>
+                    <div class="summary-block-row"><span>Клей для обоев</span><span class="summary-value"><strong id="sumWpGlue">—</strong><span class="unit">пач.</span></span></div>
                 </div>
             </div>
         </div>
@@ -643,13 +644,7 @@
                             <div class="tile-care-meta">Код товара: <strong>2311531</strong> · Спрей 0,5 л</div>
                             <div class="tile-care-quantity" id="tileCareBottles">0 шт.</div>
                             <div class="tile-care-meta" id="tileCareVolume"></div>
-                            <div class="form-group">
-                                <label for="tileCareCoverage">Расход очистителя</label>
-                                <select id="tileCareCoverage">
-                                    <option value="2.5">По техкарте · 0,2 л/м² (флакон на 2,5 м²)</option>
-                                    <option value="15">По опыту · флакон на 15 м²</option>
-                                </select>
-                            </div>
+                            <div class="tile-care-meta">Расход: 1 флакон на 7,5 м²</div>
                         </div>
                     </div>
                     <p class="tile-care-note" id="tileCareNote"></p>
@@ -829,6 +824,25 @@
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
                 Добавить дверь
             </button>
+
+            <div class="sub-label" style="margin-top:18px;">Клей для обоев</div>
+            <div class="grid-2" style="margin-top:8px;">
+                <div class="form-group">
+                    <label for="wpGlueCoverage">Покрытие одной пачки, м²</label>
+                    <input type="number" id="wpGlueCoverage" min="0.1" step="0.1" placeholder="Укажите с упаковки клея">
+                    <span class="hint">Для выбранного типа обоев. Если указан диапазон, берите меньшее значение.</span>
+                </div>
+                <div class="form-group">
+                    <label for="wpGlueReserve">Запас клея, %</label>
+                    <input type="number" id="wpGlueReserve" value="0" min="0" max="100" step="1">
+                    <span class="hint">Настройки общие для всех добавленных комнат.</span>
+                </div>
+            </div>
+            <div class="color-summary" style="margin-top:12px;" aria-live="polite">
+                <div class="color-summary-item">Под оклейку: <strong id="wpGlueArea">0</strong> м²</div>
+                <div class="color-summary-item">К покупке: <strong id="wpGluePacks">—</strong> пач.</div>
+                <div class="tile-care-meta" id="wpGlueHint">Укажите покрытие одной пачки.</div>
+            </div>
 
             <div class="sub-label" style="margin-top:18px;">Параметры рулона</div>
             <div class="grid-3" style="margin-top:8px;">
@@ -1012,7 +1026,7 @@
         function renderTileCare() {
             const enabled = document.getElementById('tileCareEnabled').checked;
             document.getElementById('tileCareContent').hidden = !enabled;
-            const coverage = document.getElementById('tileCareCoverage').value === '15' ? 15 : 2.5;
+            const coverage = 7.5;
             const entries = tileEntries.filter(entry => Number(entry.joint) > 0 && Number(entry.area) > 0);
             const area = entries.reduce((sum, entry) => sum + Number(entry.area), 0);
             const colors = [...new Set(entries.map(entry => entry.color))];
@@ -1023,22 +1037,18 @@
             document.getElementById('tileCareColors').textContent = colors.length ? 'Цвета: ' + colors.join(', ') : 'Добавьте плитку с ненулевым швом';
             document.getElementById('tileCareBottles').textContent = (enabled ? bottles : 0) + ' шт.';
             document.getElementById('tileCareVolume').textContent = format(area) + ' м² · Нужно ' + format(liters) + ' л · К покупке ' + format(bottles * 0.5) + ' л';
-            document.getElementById('tileCareNote').textContent = coverage === 15
-                ? 'Выбран расчёт по опыту: 1 флакон на 15 м². Это в 6 раз меньше расхода из техкарты; фактический расход зависит от поверхности и загрязнения.'
-                : 'По техкарте: 0,2 л/м². Один флакон 0,5 л рассчитан на 2,5 м².';
+            document.getElementById('tileCareNote').textContent = 'Расчётный расход: 1 флакон 0,5 л на 7,5 м². Количество флаконов округляется вверх.';
         }
 
         function setupTileCare() {
             const enabled = document.getElementById('tileCareEnabled');
-            const coverage = document.getElementById('tileCareCoverage');
             try {
                 const saved = JSON.parse(localStorage.getItem('tileCareSettings') || '{}');
                 enabled.checked = saved.enabled !== false;
-                coverage.value = saved.coverage === '15' ? '15' : '2.5';
             } catch (e) {}
-            [enabled, coverage].forEach(control => control.addEventListener('change', function() {
+            [enabled].forEach(control => control.addEventListener('change', function() {
                 try {
-                    localStorage.setItem('tileCareSettings', JSON.stringify({ enabled: enabled.checked, coverage: coverage.value }));
+                    localStorage.setItem('tileCareSettings', JSON.stringify({ enabled: enabled.checked }));
                 } catch (e) {}
                 renderTileCare();
                 scheduleSyncHeights();
@@ -1431,6 +1441,44 @@
             return arr.length + ' шт · ' + area.toFixed(1) + ' м²';
         }
 
+        function calcWallpaperGlue(area, coverage, reserve) {
+            if (!Number.isFinite(coverage) || coverage <= 0 ||
+                !Number.isFinite(reserve) || reserve < 0 || reserve > 100) return null;
+            return Math.ceil(Math.max(0, area * (1 + reserve / 100) / coverage - 1e-9));
+        }
+
+        function renderWallpaperGlue() {
+            const area = wallpaperEntries.reduce((sum, entry) => sum + calcWallpaper(entry).netArea, 0);
+            const coverage = Number(document.getElementById('wpGlueCoverage').value);
+            const reserveInput = document.getElementById('wpGlueReserve').value;
+            const reserve = reserveInput.trim() === '' ? NaN : Number(reserveInput);
+            const packs = calcWallpaperGlue(area, coverage, reserve);
+            const format = value => value.toLocaleString('ru-RU', { maximumFractionDigits: 2 });
+            document.getElementById('wpGlueArea').textContent = format(area);
+            document.getElementById('wpGluePacks').textContent = packs === null ? '—' : packs;
+            document.getElementById('sumWpGlue').textContent = packs === null ? '—' : packs;
+            document.getElementById('wpGlueHint').textContent = packs === null
+                ? 'Укажите покрытие пачки больше нуля и запас от 0 до 100%.'
+                : 'Стены минус окна и двери · С запасом: ' + format(area * (1 + reserve / 100)) + ' м² · Округление вверх по всем комнатам.';
+        }
+
+        function setupWallpaperGlue() {
+            const coverage = document.getElementById('wpGlueCoverage');
+            const reserve = document.getElementById('wpGlueReserve');
+            try {
+                const saved = JSON.parse(localStorage.getItem('wallpaperGlueSettings') || '{}');
+                if (saved && Number(saved.coverage) > 0 && Number.isFinite(Number(saved.coverage))) coverage.value = saved.coverage;
+                if (saved && saved.reserve !== undefined && Number(saved.reserve) >= 0 && Number(saved.reserve) <= 100) reserve.value = saved.reserve;
+            } catch (e) {}
+            [coverage, reserve].forEach(control => control.addEventListener('input', function() {
+                try {
+                    localStorage.setItem('wallpaperGlueSettings', JSON.stringify({ coverage: coverage.value, reserve: reserve.value }));
+                } catch (e) {}
+                renderWallpaperGlue();
+                scheduleSyncHeights();
+            }));
+        }
+
         function renderWallpaperTable() {
             const tbody = document.getElementById('wpTableBody');
             tbody.innerHTML = '';
@@ -1468,6 +1516,7 @@
             document.getElementById('sumWpArea').textContent = totalWallArea.toFixed(1);
             document.getElementById('sumWpOpenings').textContent = totalOpeningsArea.toFixed(1);
             document.getElementById('sumWpRolls').textContent = totalRolls;
+            renderWallpaperGlue();
 
             if (anyError) {
                 console.warn('Некоторые рулоны короче одной полосы — проверьте высоту стен и длину рулона.');
@@ -1636,6 +1685,7 @@
         window.addEventListener('DOMContentLoaded', function() {
             loadData();
             setupTileCare();
+            setupWallpaperGlue();
 
             let seeded = false;
             try { seeded = localStorage.getItem('appSeeded') === '1'; } catch (e) {}
