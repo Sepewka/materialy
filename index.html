@@ -451,6 +451,22 @@
             .action-row { flex-direction: column; align-items: stretch; }
             .action-row .spacer { display: none; }
         }
+
+        /* Дополнительные материалы для эпоксидной затирки */
+        .tile-care { margin-top: 18px; padding: 18px; border: 1px solid var(--input-border); border-radius: var(--radius-md); background: var(--input-bg); }
+        .tile-care-heading { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 12px; margin-bottom: 14px; }
+        .tile-care-heading h2 { font-size: 14px; font-weight: 600; }
+        .tile-care-toggle { display: flex; align-items: center; gap: 8px; font-size: 12.5px; color: var(--text-secondary); cursor: pointer; }
+        .tile-care-toggle input { accent-color: var(--accent); width: 16px; height: 16px; }
+        .tile-care-card { background: var(--paper); border: 1px solid var(--paper-border); border-radius: 8px; padding: 14px; }
+        .tile-care-card h3 { font-size: 13px; line-height: 1.5; font-weight: 600; }
+        .tile-care-meta { color: var(--text-secondary); font-size: 12px; line-height: 1.6; margin-top: 5px; overflow-wrap: anywhere; }
+        .tile-care-quantity { font-size: 23px; font-weight: 700; margin-top: 10px; color: var(--accent); }
+        .tile-care-card .form-group { margin-top: 12px; }
+        .tile-care-card select { width: 100%; font-size: 12px; padding: 9px; }
+        .tile-care-note { font-size: 12px; color: var(--text-secondary); line-height: 1.7; margin-top: 12px; }
+        .tile-care-note a { color: var(--accent); }
+        .tile-care [hidden] { display: none !important; }
     </style>
 </head>
 <body>
@@ -609,6 +625,40 @@
                 </table>
             </div>
             <div id="tileColorSummary" class="color-summary" style="display:none;"></div>
+            <section class="tile-care" aria-labelledby="tileCareTitle">
+                <div class="tile-care-heading">
+                    <h2 id="tileCareTitle">Уход после эпоксидной затирки</h2>
+                    <label class="tile-care-toggle"><input type="checkbox" id="tileCareEnabled" checked> Включить в расчёт</label>
+                </div>
+                <div id="tileCareContent">
+                    <div class="grid-2">
+                        <div class="tile-care-card">
+                            <h3>Губка целлюлозная комбинированная Диамант</h3>
+                            <div class="tile-care-meta">Код товара: <strong>2311532</strong> · 1 губка на каждый цвет</div>
+                            <div class="tile-care-quantity" id="tileCareSponges">0 шт.</div>
+                            <div class="tile-care-meta" id="tileCareColors"></div>
+                        </div>
+                        <div class="tile-care-card">
+                            <h3>Очиститель эпоксидных остатков DIAMANT+ Light</h3>
+                            <div class="tile-care-meta">Код товара: <strong>2311531</strong> · Спрей 0,5 л</div>
+                            <div class="tile-care-quantity" id="tileCareBottles">0 шт.</div>
+                            <div class="tile-care-meta" id="tileCareVolume"></div>
+                            <div class="form-group">
+                                <label for="tileCareCoverage">Расход очистителя</label>
+                                <select id="tileCareCoverage">
+                                    <option value="2.5">По техкарте · 0,2 л/м² (флакон на 2,5 м²)</option>
+                                    <option value="15">По опыту · флакон на 15 м²</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <p class="tile-care-note" id="tileCareNote"></p>
+                    <p class="tile-care-note">Расчёт по всем строкам плитки с ненулевым швом. Одинаковые цвета используют одну губку; флаконы округляются вверх по общей площади.
+                        Для цементной затирки отключите этот блок.
+                        <a href="https://cdn.vseinstrumenti.ru/instruction/nomenclaturecontent/202006/2562931.pdf/1208880_manual.pdf#page=5" target="_blank" rel="noopener noreferrer">Техкарта DIAMANT+ Light</a>.
+                    </p>
+                </div>
+            </section>
         </div>
 
         <!-- ========= КРАСКА ========= -->
@@ -958,6 +1008,43 @@
             return Math.ceil(area / 5);
         }
 
+        // Расходники считаются отдельно: исходные записи и формулы не меняются.
+        function renderTileCare() {
+            const enabled = document.getElementById('tileCareEnabled').checked;
+            document.getElementById('tileCareContent').hidden = !enabled;
+            const coverage = document.getElementById('tileCareCoverage').value === '15' ? 15 : 2.5;
+            const entries = tileEntries.filter(entry => Number(entry.joint) > 0 && Number(entry.area) > 0);
+            const area = entries.reduce((sum, entry) => sum + Number(entry.area), 0);
+            const colors = [...new Set(entries.map(entry => entry.color))];
+            const liters = area * 0.5 / coverage;
+            const bottles = Math.ceil(Math.max(0, area / coverage - 1e-9));
+            const format = value => value.toLocaleString('ru-RU', { maximumFractionDigits: 2 });
+            document.getElementById('tileCareSponges').textContent = (enabled ? colors.length : 0) + ' шт.';
+            document.getElementById('tileCareColors').textContent = colors.length ? 'Цвета: ' + colors.join(', ') : 'Добавьте плитку с ненулевым швом';
+            document.getElementById('tileCareBottles').textContent = (enabled ? bottles : 0) + ' шт.';
+            document.getElementById('tileCareVolume').textContent = format(area) + ' м² · Нужно ' + format(liters) + ' л · К покупке ' + format(bottles * 0.5) + ' л';
+            document.getElementById('tileCareNote').textContent = coverage === 15
+                ? 'Выбран расчёт по опыту: 1 флакон на 15 м². Это в 6 раз меньше расхода из техкарты; фактический расход зависит от поверхности и загрязнения.'
+                : 'По техкарте: 0,2 л/м². Один флакон 0,5 л рассчитан на 2,5 м².';
+        }
+
+        function setupTileCare() {
+            const enabled = document.getElementById('tileCareEnabled');
+            const coverage = document.getElementById('tileCareCoverage');
+            try {
+                const saved = JSON.parse(localStorage.getItem('tileCareSettings') || '{}');
+                enabled.checked = saved.enabled !== false;
+                coverage.value = saved.coverage === '15' ? '15' : '2.5';
+            } catch (e) {}
+            [enabled, coverage].forEach(control => control.addEventListener('change', function() {
+                try {
+                    localStorage.setItem('tileCareSettings', JSON.stringify({ enabled: enabled.checked, coverage: coverage.value }));
+                } catch (e) {}
+                renderTileCare();
+                scheduleSyncHeights();
+            }));
+        }
+
         function renderTileTable() {
             const tbody = document.getElementById('tileTableBody');
             tbody.innerHTML = '';
@@ -1001,6 +1088,8 @@
             document.getElementById('sumTileArea').textContent = totalArea.toFixed(1);
             document.getElementById('sumTileBags').textContent = totalBags;
             document.getElementById('sumTileGrout').textContent = totalGrout.toFixed(2);
+
+            renderTileCare();
 
             const summary = document.getElementById('tileColorSummary');
             const keys = Object.keys(colorMap);
@@ -1546,6 +1635,7 @@
         // ===================== ИНИЦИАЛИЗАЦИЯ =====================
         window.addEventListener('DOMContentLoaded', function() {
             loadData();
+            setupTileCare();
 
             let seeded = false;
             try { seeded = localStorage.getItem('appSeeded') === '1'; } catch (e) {}
