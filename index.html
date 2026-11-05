@@ -480,7 +480,7 @@
                 </span>
                 <div>
                     <h1>Калькулятор материалов</h1>
-                    <div class="subtitle">Плитка · Краска · Кварцвинил · Обои</div>
+                    <div class="subtitle">Плитка · Краска · Ламинат и кварцвинил · Обои</div>
                 </div>
             </div>
             <button class="theme-toggle" id="themeToggle" aria-label="Переключить тему">
@@ -499,7 +499,7 @@
             </button>
             <button class="tab-btn" data-tab="vinyl">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="4" rx="1"/><rect x="3" y="10" width="18" height="4" rx="1"/><rect x="3" y="16" width="18" height="4" rx="1"/></svg>
-                Кварцвинил
+                Ламинат и кварцвинил
             </button>
             <button class="tab-btn" data-tab="wallpaper">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 12h18"/><path d="M9 3v18"/><path d="M15 3v18"/></svg>
@@ -531,7 +531,7 @@
                     <div class="summary-block-row"><span>Грунт</span><span class="summary-value"><strong id="sumPrimerLiters">0</strong><span class="unit">л</span></span></div>
                 </div>
                 <div class="summary-block">
-                    <div class="summary-block-label">Кварцвинил</div>
+                    <div class="summary-block-label">Ламинат и кварцвинил</div>
                     <div class="summary-block-row"><span>Площадь</span><span class="summary-value"><strong id="sumVinylArea">0</strong><span class="unit">м²</span></span></div>
                     <div class="summary-block-row"><span>С запасом</span><span class="summary-value"><strong id="sumVinylMaterial">0</strong><span class="unit">м²</span></span></div>
                     <div class="summary-block-row"><span>Клей</span><span class="summary-value"><strong id="sumVinylGlue">0</strong><span class="unit">кг</span></span></div>
@@ -542,6 +542,7 @@
                     <div class="summary-block-row"><span>Проёмы</span><span class="summary-value"><strong id="sumWpOpenings">0</strong><span class="unit">м²</span></span></div>
                     <div class="summary-block-row"><span>Рулонов</span><span class="summary-value"><strong id="sumWpRolls">0</strong><span class="unit">шт</span></span></div>
                     <div class="summary-block-row"><span>Клей для обоев</span><span class="summary-value"><strong id="sumWpGlue">—</strong><span class="unit">пач.</span></span></div>
+                    <div class="summary-block-row"><span>Грунтовка под обои</span><span class="summary-value"><strong id="sumWpPrimer">0</strong><span class="unit">л</span></span></div>
                 </div>
             </div>
         </div>
@@ -606,7 +607,7 @@
                     Очистить
                 </button>
                 <span class="spacer"></span>
-                <span class="info-hint">Клей: 1 мешок (25 кг) на 5 м² · Затирка: плотность 1.78</span>
+                <span class="info-hint">Клей: 1 мешок (25 кг) на 4 м² · Затирка: плотность 1.78</span>
             </div>
             <div class="table-wrap">
                 <table>
@@ -624,6 +625,12 @@
                         </tr>
                     </tfoot>
                 </table>
+            </div>
+            <div class="tile-care-card" style="margin-top:18px;" aria-live="polite">
+                <h3>Клей для плитки</h3>
+                <div class="tile-care-meta">Код товара: <strong>1872635</strong> · Мешок 25 кг</div>
+                <div class="tile-care-quantity"><span id="tileGlueBagsCard">0</span> меш.</div>
+                <div class="tile-care-meta">1 мешок на 4 м² · Округление вверх по каждому участку</div>
             </div>
             <div id="tileColorSummary" class="color-summary" style="display:none;"></div>
             <section class="tile-care" aria-labelledby="tileCareTitle">
@@ -735,7 +742,15 @@
 
         <!-- ========= КВАРЦВИНИЛ ========= -->
         <div id="tab-vinyl" class="section-panel">
-            <div class="grid-2">
+            <div class="grid-3">
+                <div class="form-group">
+                    <label for="vinylType">Покрытие</label>
+                    <select id="vinylType">
+                        <option value="spc">Кварцвинил SPC (замковый)</option>
+                        <option value="laminate">Ламинат</option>
+                        <option value="glue">Кварцвинил (клеевой)</option>
+                    </select>
+                </div>
                 <div class="form-group">
                     <label>Площадь (чистая), м²</label>
                     <input type="number" id="vinylArea" value="20" step="0.1">
@@ -745,6 +760,7 @@
                     <select id="vinylPattern">
                         <option value="straight">Прямая (запас 5%)</option>
                         <option value="diagonal">Диагональная (запас 7%)</option>
+                        <option value="herringbone">Ёлочка (запас 10%)</option>
                     </select>
                 </div>
             </div>
@@ -764,13 +780,13 @@
                     Очистить
                 </button>
                 <span class="spacer"></span>
-                <span class="info-hint">Клей: 0.4 кг/м² + запас 8%</span>
+                <span class="info-hint">Клей — только для клеевого кварцвинила: 0,4 кг/м² + 8%</span>
             </div>
             <div class="table-wrap">
                 <table>
                     <thead>
                         <tr>
-                            <th>Объект</th>
+                            <th>Объект / покрытие</th>
                             <th>Чистая площадь, м²</th>
                             <th>Тип укладки</th>
                             <th>Итоговая площадь (с запасом), м²</th>
@@ -791,6 +807,7 @@
                     </tfoot>
                 </table>
             </div>
+<div class="color-summary" aria-live="polite" style="margin-top:18px;"><div class="tile-care-card"><h3>Пароизоляционная плёнка</h3><div class="tile-care-meta">Код: <strong>2765312</strong> · 10 м²/уп.</div><div class="tile-care-quantity"><span id="floorFilm">0</span> уп.</div></div><div class="tile-care-card"><h3>Подложка SPC · 1,5 мм</h3><div class="tile-care-meta">Код: <strong>2676316</strong> · 10 м²/уп.</div><div class="tile-care-quantity"><span id="floorSpc">0</span> уп.</div></div><div class="tile-care-card"><h3>Подложка ламинат · 3 мм</h3><div class="tile-care-meta">Код: <strong>1387962</strong> · 5 м²/уп.</div><div class="tile-care-quantity"><span id="floorLaminate">0</span> уп.</div></div></div><p class="tile-care-note">Плёнка — по общей чистой площади. Подложка — по чистой площади соответствующего покрытия, без запаса на подрезку; для клеевого кварцвинила подложка не считается. Упаковки округляются вверх после суммирования участков. Плёнка и SPC-подложка считаются как 10 м² в упаковке.</p>
         </div>
 
         <!-- ========= ОБОИ ========= -->
@@ -825,23 +842,20 @@
                 Добавить дверь
             </button>
 
-            <div class="sub-label" style="margin-top:18px;">Клей для обоев</div>
-            <div class="grid-2" style="margin-top:8px;">
-                <div class="form-group">
-                    <label for="wpGlueCoverage">Покрытие одной пачки, м²</label>
-                    <input type="number" id="wpGlueCoverage" min="0.1" step="0.1" placeholder="Укажите с упаковки клея">
-                    <span class="hint">Для выбранного типа обоев. Если указан диапазон, берите меньшее значение.</span>
+            <div class="sub-label" style="margin-top:18px;">Клей и грунтовка</div>
+            <div class="grid-2" style="margin-top:12px;" aria-live="polite">
+                <div class="tile-care-card">
+                    <h3>Клей для обоев</h3>
+                    <div class="tile-care-meta">Код товара: <strong>2557444</strong> · 1 пачка на 3 рулона 1,06 × 10,05 м</div>
+                    <div class="tile-care-quantity"><span id="wpGluePacks">0</span> пач.</div>
+                    <div class="tile-care-meta" id="wpGlueHint"></div>
                 </div>
-                <div class="form-group">
-                    <label for="wpGlueReserve">Запас клея, %</label>
-                    <input type="number" id="wpGlueReserve" value="0" min="0" max="100" step="1">
-                    <span class="hint">Настройки общие для всех добавленных комнат.</span>
+                <div class="tile-care-card">
+                    <h3>Грунтовка под обои</h3>
+                    <div class="tile-care-meta">Код товара: <strong>1820035</strong> · 1 л на 1 м²</div>
+                    <div class="tile-care-quantity"><span id="wpPrimerLiters">0</span> л</div>
+                    <div class="tile-care-meta">Под оклейку: <span id="wpGlueArea">0</span> м² · Стены за вычетом окон и дверей</div>
                 </div>
-            </div>
-            <div class="color-summary" style="margin-top:12px;" aria-live="polite">
-                <div class="color-summary-item">Под оклейку: <strong id="wpGlueArea">0</strong> м²</div>
-                <div class="color-summary-item">К покупке: <strong id="wpGluePacks">—</strong> пач.</div>
-                <div class="tile-care-meta" id="wpGlueHint">Укажите покрытие одной пачки.</div>
             </div>
 
             <div class="sub-label" style="margin-top:18px;">Параметры рулона</div>
@@ -1019,7 +1033,7 @@
         }
 
         function calcGlueBags(area) {
-            return Math.ceil(area / 5);
+            return Math.ceil(area / 4);
         }
 
         // Расходники считаются отдельно: исходные записи и формулы не меняются.
@@ -1094,6 +1108,7 @@
 
             document.getElementById('totalTileArea').textContent = totalArea.toFixed(1);
             document.getElementById('totalTileBags').textContent = totalBags;
+            document.getElementById('tileGlueBagsCard').textContent = totalBags;
             document.getElementById('totalTileGrout').textContent = totalGrout.toFixed(2);
             document.getElementById('sumTileArea').textContent = totalArea.toFixed(1);
             document.getElementById('sumTileBags').textContent = totalBags;
@@ -1251,7 +1266,16 @@
         }
 
         // ===================== КВАРЦВИНИЛ =====================
+        function renderFloorAccessories() {
+            const sum = type => vinylEntries.reduce((total, entry) => total + ((!type || entry.type === type) ? Number(entry.area) : 0), 0);
+            const packs = (area, size) => Math.ceil(Math.max(0, area / size - 1e-9));
+            document.getElementById('floorFilm').textContent = packs(sum(), 10);
+            document.getElementById('floorSpc').textContent = packs(sum('spc'), 10);
+            document.getElementById('floorLaminate').textContent = packs(sum('laminate'), 5);
+        }
+
         function renderVinylTable() {
+            renderFloorAccessories();
             const tbody = document.getElementById('vinylTableBody');
             tbody.innerHTML = '';
             let totalArea = 0, totalMaterial = 0, totalGlue = 0;
@@ -1262,10 +1286,11 @@
 
             vinylEntries.forEach((entry, index) => {
                 const { area, pattern, comment } = entry;
-                const waste = (pattern === 'straight') ? VINYL_WASTE_STRAIGHT : VINYL_WASTE_DIAGONAL;
+                const waste = pattern === 'herringbone' ? 0.10 : (pattern === 'straight' ? VINYL_WASTE_STRAIGHT : VINYL_WASTE_DIAGONAL);
                 const materialArea = area * (1 + waste);
-                const glue = area * VINYL_GLUE_RATE * (1 + GLUE_WASTE);
-                const patternLabel = (pattern === 'straight') ? 'Прямая' : 'Диагональная';
+                const type = entry.type || 'glue'; // Старые записи сохраняют расчёт клеевого кварцвинила.
+                const glue = type === 'glue' ? area * VINYL_GLUE_RATE * (1 + GLUE_WASTE) : 0;
+                const patternLabel = pattern === 'herringbone' ? 'Ёлочка · 10%' : (pattern === 'straight' ? 'Прямая · 5%' : 'Диагональная · 7%');
 
                 totalArea += area;
                 totalMaterial += materialArea;
@@ -1273,7 +1298,7 @@
 
                 const row = document.createElement('tr');
                 row.innerHTML = `
-                    <td>${esc(comment)}</td>
+                    <td>${esc(comment)}<div class="tile-care-meta">${type === 'laminate' ? 'Ламинат' : type === 'spc' ? 'Кварцвинил SPC' : 'Кварцвинил клеевой'}</div></td>
                     <td>${Number(area).toFixed(1)}</td>
                     <td>${patternLabel}</td>
                     <td>${materialArea.toFixed(2)}</td>
@@ -1313,7 +1338,8 @@
                 return;
             }
 
-            vinylEntries.push({ area, pattern, comment });
+            const type = document.getElementById('vinylType').value;
+            vinylEntries.push({ area, pattern, comment, type });
             saveData();
             renderVinylTable();
             document.getElementById('vinylComment').value = '';
@@ -1321,7 +1347,7 @@
 
         function clearVinylTable() {
             if (vinylEntries.length === 0) return;
-            if (!confirm('Удалить все записи по кварцвинилу?')) return;
+            if (!confirm('Удалить все записи по ламинату и кварцвинилу?')) return;
             vinylEntries = [];
             saveData();
             renderVinylTable();
@@ -1441,42 +1467,25 @@
             return arr.length + ' шт · ' + area.toFixed(1) + ' м²';
         }
 
-        function calcWallpaperGlue(area, coverage, reserve) {
-            if (!Number.isFinite(coverage) || coverage <= 0 ||
-                !Number.isFinite(reserve) || reserve < 0 || reserve > 100) return null;
-            return Math.ceil(Math.max(0, area * (1 + reserve / 100) / coverage - 1e-9));
-        }
-
         function renderWallpaperGlue() {
-            const area = wallpaperEntries.reduce((sum, entry) => sum + calcWallpaper(entry).netArea, 0);
-            const coverage = Number(document.getElementById('wpGlueCoverage').value);
-            const reserveInput = document.getElementById('wpGlueReserve').value;
-            const reserve = reserveInput.trim() === '' ? NaN : Number(reserveInput);
-            const packs = calcWallpaperGlue(area, coverage, reserve);
+            let area = 0, standardRolls = 0, anyError = false;
+            wallpaperEntries.forEach(entry => {
+                const result = calcWallpaper(entry);
+                area += result.netArea;
+                anyError = anyError || result.error;
+                // Для другого формата — эквивалент по площади стандартного рулона.
+                standardRolls += result.rolls * entry.rollW * entry.rollL / (1.06 * 10.05);
+            });
+            const packs = Math.ceil(Math.max(0, standardRolls / 3 - 1e-9));
             const format = value => value.toLocaleString('ru-RU', { maximumFractionDigits: 2 });
             document.getElementById('wpGlueArea').textContent = format(area);
-            document.getElementById('wpGluePacks').textContent = packs === null ? '—' : packs;
-            document.getElementById('sumWpGlue').textContent = packs === null ? '—' : packs;
-            document.getElementById('wpGlueHint').textContent = packs === null
-                ? 'Укажите покрытие пачки больше нуля и запас от 0 до 100%.'
-                : 'Стены минус окна и двери · С запасом: ' + format(area * (1 + reserve / 100)) + ' м² · Округление вверх по всем комнатам.';
-        }
-
-        function setupWallpaperGlue() {
-            const coverage = document.getElementById('wpGlueCoverage');
-            const reserve = document.getElementById('wpGlueReserve');
-            try {
-                const saved = JSON.parse(localStorage.getItem('wallpaperGlueSettings') || '{}');
-                if (saved && Number(saved.coverage) > 0 && Number.isFinite(Number(saved.coverage))) coverage.value = saved.coverage;
-                if (saved && saved.reserve !== undefined && Number(saved.reserve) >= 0 && Number(saved.reserve) <= 100) reserve.value = saved.reserve;
-            } catch (e) {}
-            [coverage, reserve].forEach(control => control.addEventListener('input', function() {
-                try {
-                    localStorage.setItem('wallpaperGlueSettings', JSON.stringify({ coverage: coverage.value, reserve: reserve.value }));
-                } catch (e) {}
-                renderWallpaperGlue();
-                scheduleSyncHeights();
-            }));
+            document.getElementById('wpPrimerLiters').textContent = format(area);
+            document.getElementById('sumWpPrimer').textContent = format(area);
+            document.getElementById('wpGluePacks').textContent = anyError ? '—' : packs;
+            document.getElementById('sumWpGlue').textContent = anyError ? '—' : packs;
+            document.getElementById('wpGlueHint').textContent = anyError
+                ? 'Проверьте длину рулона: она меньше длины одной полосы.'
+                : 'Округление вверх по всем комнатам. Другие форматы пересчитываются по площади в стандартные рулоны.';
         }
 
         function renderWallpaperTable() {
@@ -1685,7 +1694,6 @@
         window.addEventListener('DOMContentLoaded', function() {
             loadData();
             setupTileCare();
-            setupWallpaperGlue();
 
             let seeded = false;
             try { seeded = localStorage.getItem('appSeeded') === '1'; } catch (e) {}
